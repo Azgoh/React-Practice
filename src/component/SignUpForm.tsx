@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { GoogleIcon } from '../icons/CustomIcons';
 import { Button, Divider, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL, OAUTH2_BASE_URL } from '../config/Config';
 
 
 function SignUpForm() {
@@ -97,7 +98,7 @@ function SignUpForm() {
         setError(null);
 
         try{
-            const response = await axios.post<string>('http://localhost:8080/api/register', formData,
+            const response = await axios.post<string>(`${API_BASE_URL}/register`, formData,
                 {headers: { 'Content-Type': 'application/json' }}
             );
             setMessage(response.data);
@@ -141,10 +142,10 @@ function SignUpForm() {
                 <Button
                 fullWidth
                 variant="outlined"
-                onClick={() => { window.location.href = 'http://localhost:8080/oauth2/authorization/google';}}
+                onClick={() => { window.location.href = `${OAUTH2_BASE_URL}`;}}
                 startIcon={<GoogleIcon />}
                 >
-                Sign up with Google
+                Continue with Google
                 </Button>
             </form>
             <Typography sx={{ textAlign: 'center' }} className='login_typography'>
