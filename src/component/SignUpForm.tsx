@@ -1,9 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 import axios from 'axios';
 import type { RegisterRequestDto } from '../interface/RegisterRequestDto';
 import * as FaIcons from 'react-icons/fa';
 import './SignUpForm.css';
 import { Link } from 'react-router-dom';
+import { GoogleIcon } from '../icons/CustomIcons';
+import { Button, Divider, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
 
 function SignUpForm() {
 
@@ -34,7 +39,9 @@ function SignUpForm() {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    const passwordErrorMessage: string = "Password must be between 8-30 characters, only numbers and letters"
+    const passwordErrorMessage: string = "Password must be between 8-30 characters, only numbers and letters";
+
+    const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const {name, value} = e.target;
@@ -94,6 +101,8 @@ function SignUpForm() {
                 {headers: { 'Content-Type': 'application/json' }}
             );
             setMessage(response.data);
+            navigate("/login");
+
         } catch (err: any){
             if(err.response?.data?.message){
                 setError(err.response.data.message);
@@ -125,12 +134,28 @@ function SignUpForm() {
                     </span>
                 </div>  
                 {passwordError && <p>{passwordError}</p>}
-                <button className='register-btn' type='submit' disabled={!isFormValid()}>Register</button>
+                <button className='register-btn' type='submit' disabled={!isFormValid()}>Sign up</button>
+                <Divider>
+                    <Typography sx={{ color: 'text.secondary' }}>or</Typography>
+                </Divider>
+                <Button
+                fullWidth
+                variant="outlined"
+                onClick={() => { window.location.href = 'http://localhost:8080/oauth2/authorization/google';}}
+                startIcon={<GoogleIcon />}
+                >
+                Sign up with Google
+                </Button>
             </form>
-            <div className="login-prompt">
-             Already have an account? <Link className='router' to="/login">Login</Link>
-            </div>
-
+            <Typography sx={{ textAlign: 'center' }} className='login_typography'>
+                Already have an account?{' '}
+                <Link
+                to="/login"
+                className='login_link'
+                >
+                Sign in
+                </Link>
+            </Typography>
             {message && <p style={{color: 'green'}}>{message}</p>}
             {error && <p style={{color: 'red'}}>{error}</p>}
         </div>
