@@ -118,17 +118,17 @@ function SignUpForm() {
     };
 
     return(
-        <div className='wrapper'>
-            <form onSubmit={handleSubmit}>
-                <h1>Sign Up</h1>
-                <h3>Sign up to continue</h3>
-                <input name='username' placeholder='Username' value={formData.username} onChange={handleChange} required/>
+        <div className='register-wrapper'>
+            <form onSubmit={handleSubmit} className='register-form'>
+                <h1 className='register-h1'>Sign Up</h1>
+                <h3 className='register-h3'>Sign up to continue</h3>
+                <input name='username' placeholder='Username' value={formData.username} onChange={handleChange} required className='register-input'/>
                 {usernameError && <p>{usernameError}</p>}
-                <input name='email' type='email' placeholder='Email' value={formData.email} onChange={handleChange} required/>
+                <input name='email' type='email' placeholder='Email' value={formData.email} onChange={handleChange} required className='register-input'/>
                 {emailError &&  <p>{emailError}</p>}
                 <div className='password-container'>
                     <input name='password' type={showPassword ? 'text' : 'password'} 
-                    placeholder='Password' value={formData.password} onChange={handleChange} autoComplete='new-password' required/>
+                    placeholder='Password' value={formData.password} onChange={handleChange} autoComplete='new-password' required className='register-input'/>
                     <span
                     onClick={togglePasswordVisibility}>
                     {showPassword ? <FaIcons.FaEyeSlash/> : <FaIcons.FaEye/>}

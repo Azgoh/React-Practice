@@ -1,4 +1,4 @@
-.wrapper {
+.register-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,17 +8,17 @@
   width: 100vw;
 }
 
-h1{
+.register-h1{
   align-self: center;
 }
 
-h3{
+.register-h3{
   align-self: center;
   color: grey;
 }
 
 
-form {
+.register-form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -59,7 +59,7 @@ form {
   color: #555;
 }
 
-input, .register-btn {
+.register-input, .register-btn {
   padding: 0.75rem;
   font-size: 1rem;
   border: 1px solid #ccc;
@@ -90,25 +90,21 @@ p {
   color: red;
 }
 
-input:hover{
+.register-input:hover{
   border: 1px solid black;
 }
 
-input:focus{
+.register-input:focus{
   border: 1px solid blue;
   outline: none;
 }
 
 @media (max-width: 480px) {
-  form {
+  .register-form {
     padding: 1.5rem 1rem;
   }
 
-  h2 {
-    font-size: 1.25rem;
-  }
-
-  input, .register-btn {
+  .register-input, .register-btn {
     font-size: 0.95rem;
     padding: 0.65rem;
   }

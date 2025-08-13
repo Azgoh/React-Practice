@@ -17,7 +17,7 @@ function LoginForm(){
             password: ''
         });
 
-    const [identifierError, setIdentifierError] = useState<string | null>(null);
+    // const [identifierError, setIdentifierError] = useState<string | null>(null);
 
     const [passwordError, setPasswordError] = useState<string | null>(null);
 
@@ -87,13 +87,13 @@ function LoginForm(){
 
  
     return(
-        <div className='wrapper'>
-            <form onSubmit={handleSubmit}>
-                <h1>Log in to continue</h1>
-                <input name='identifier' placeholder='Username or email' value={formData.identifier} onChange={handleChange} required/>
+        <div className='login-wrapper'>
+            <form onSubmit={handleSubmit} className='login-form'>
+                <h1 className='login-h1'>Log in to continue</h1>
+                <input name='identifier' placeholder='Username or email' value={formData.identifier} onChange={handleChange} required className='login-input'/>
                 <div className='password-container'>
                      <input name='password' type={showPassword ? 'text' : 'password'} 
-                     placeholder='Password' value={formData.password} onChange={handleChange} autoComplete='new-password' required/>
+                     placeholder='Password' value={formData.password} onChange={handleChange} autoComplete='new-password' required className='login-input'/>
                      <span
                      onClick={togglePasswordVisibility}>
                      {showPassword ? <FaIcons.FaEyeSlash/> : <FaIcons.FaEye/>}

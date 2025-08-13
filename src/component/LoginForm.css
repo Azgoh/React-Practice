@@ -1,4 +1,4 @@
-.wrapper {
+.login-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,17 +8,11 @@
   width: 100vw;
 }
 
-h1{
+.login-h1{
   align-self: center;
 }
 
-h3{
-  align-self: center;
-  color: grey;
-}
-
-
-form {
+.login-form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -59,7 +53,7 @@ form {
   color: #555;
 }
 
-input, .login-btn {
+.login-input, .login-btn {
   padding: 0.75rem;
   font-size: 1rem;
   border: 1px solid #ccc;
@@ -90,25 +84,21 @@ p {
   color: red;
 }
 
-input:hover{
+.login-input:hover{
   border: 1px solid black;
 }
 
-input:focus{
+.login-input:focus{
   border: 1px solid blue;
   outline: none;
 }
 
 @media (max-width: 480px) {
-  form {
+  .login-form {
     padding: 1.5rem 1rem;
   }
 
-  h2 {
-    font-size: 1.25rem;
-  }
-
-  input, .login-btn {
+  .login-input, .login-btn {
     font-size: 0.95rem;
     padding: 0.65rem;
   }
