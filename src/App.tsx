@@ -8,8 +8,7 @@ import OAuth2RedirectHandler from './component/OAuth2RedirectHandler'
 function App() {
 
   const token = sessionStorage.getItem("jwt");
-  console.log(token);
-
+  
   return(
     <Routes>
       <Route
