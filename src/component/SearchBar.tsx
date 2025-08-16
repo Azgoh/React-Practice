@@ -5,6 +5,7 @@ import './SearchBar.css';
 import axios from 'axios';
 import { API_BASE_URL } from '../config/Config';
 import type { Professional } from '../interface/Professional';
+import { FaTimes } from 'react-icons/fa';
 
 export const SearchBar = () => {
 
@@ -26,12 +27,12 @@ export const SearchBar = () => {
         getProfessionals();
     }, [])
 
-    useEffect(() => {
-        if(input === ""){
-            setFiltered([]);
-            return;
-        }
-    }, [input])
+    // useEffect(() => {
+    //     if(input === ""){
+    //         setFiltered([]);
+    //         return;
+    //     }
+    // }, [input])
 
     useEffect(() => {
         const lowerInput = input.toLowerCase();
@@ -45,8 +46,11 @@ export const SearchBar = () => {
 
     const handleSelectProf = (prof: Professional): void => {
         setInput(`${prof.profession}`);
-        setFiltered([]);
         setFocused(false);
+    }
+
+    const clearInput = (): void => {
+        setInput("");
     }
 
     return (
@@ -58,7 +62,7 @@ export const SearchBar = () => {
             onChange={(e) => setInput(e.target.value)}
             onFocus={() => setFocused(true)}
             onBlur={() => setTimeout(() => setFocused(false), 150)}
-            />
+            /> <FaTimes className='clear-icon' onClick={clearInput}/>
             {focused && filtered.length > 0 && (
                 <div className='search-results'>
                 {filtered.map((prof) => (

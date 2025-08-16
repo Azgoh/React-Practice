@@ -17,7 +17,7 @@ export default function Header() {
         <Link to="/register-professional" className="nav-link">
             <FaUserTie className="icon" />  Register as a Professional
         </Link>
-        <Link to="/account" className="nav-link">
+        <Link to="/my-account" className="nav-link">
           <FaUserCircle className='icon'/> My Account
         </Link>
       </nav>
