@@ -1,0 +1,83 @@
+.prof-register-wrapper{
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100vh;
+    width: 100vw;
+}
+
+.prof-register-form{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 25%;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    height: auto;
+    min-height: 400px;
+    align-self: center;
+    justify-self: center;
+}
+
+.prof-register-h1{
+    align-self: center;
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.prof-register-h3{
+    align-self: flex-start;
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: -1rem;
+}
+
+.prof-register-input, .prof-register-btn{
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.prof-register-btn{
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.prof-register-btn:disabled{
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.prof-register-btn:not(:disabled):hover {
+    background-color: #0056b3;
+}
+.prof-register-input:hover{
+    border: 1px solid black;
+}
+
+.prof-register-input:focus{
+    border: 1px solid blue;
+    outline: none;
+}
+
+@media (max-width: 480px) {
+  .prof-register--form {
+    padding: 1.5rem 1rem;
+  }
+
+  .prof-register-input, .prof-register-btn {
+    font-size: 0.95rem;
+    padding: 0.65rem;
+  }
+}
+
