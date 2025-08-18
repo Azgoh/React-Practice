@@ -7,7 +7,6 @@ import "./SignUpForm.css";
 import { Link } from "react-router-dom";
 import { GoogleIcon } from "../icons/CustomIcons";
 import { Button, Divider, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { API_BASE_URL, OAUTH2_BASE_URL } from "../config/Config";
 import Header from "./Header";
 import { zodResolver } from "@hookform/resolvers/zod";
