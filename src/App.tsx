@@ -6,6 +6,7 @@ import HomePage from './component/HomePage'
 import OAuth2RedirectHandler from './component/OAuth2RedirectHandler'
 import MyAccount from './component/MyAccount'
 import ProfRegister from './component/ProfRegister'
+import VerifyEmailPage from './component/VerifyEmailPage'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
       <Route path="/login" element={token ? <Navigate to="/home" replace /> : <LoginForm />} />
       <Route path="/home" element={<HomePage />} />
       <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
+      <Route path="/verify-email" element={<VerifyEmailPage />} /> 
       <Route path="/my-account" element={<MyAccount/>} />
       <Route path="/register-professional" element={<ProfRegister/>} />
     </Routes>
