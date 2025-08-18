@@ -11,7 +11,7 @@ interface HeaderProps{
 export default function Header({shownav= true}: HeaderProps) {
 
   return (
-   <header className={`header ${shownav ? "" : "no-nav"}`}>
+   <header className="header">
       <div className="header-left">
         <Link to="/" className="logo"><img src={logo} alt="MyApp Logo" />
              Expert services made easy
@@ -30,7 +30,7 @@ export default function Header({shownav= true}: HeaderProps) {
 
       {!shownav && (
         <nav className='header-right'>
-          <Link to="contact-us" className='nav-link'>
+          <Link to="/contact-us" className='nav-link'>
             <FaEnvelope className='icon'/> Contact us
           </Link>
         </nav>

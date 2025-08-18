@@ -8,6 +8,7 @@ import './LoginForm.css'
 import { Button, Divider, Typography } from '@mui/material';
 import { GoogleIcon } from '../icons/CustomIcons';
 import { Link, useNavigate } from 'react-router-dom';
+import Header from './Header';
 
 
 function LoginForm(){
@@ -88,6 +89,7 @@ function LoginForm(){
  
     return(
         <div className='login-wrapper'>
+            <Header shownav={false}></Header>
             <form onSubmit={handleSubmit} className='login-form'>
                 <h1 className='login-h1'>Log in to continue</h1>
                 <input name='identifier' placeholder='Username or email' value={formData.identifier} onChange={handleChange} required className='login-input'/>
@@ -112,8 +114,7 @@ function LoginForm(){
                 >
                 Continue with Google
                 </Button>
-            </form>
-            <Typography sx={{ textAlign: 'center' }} className='register_typography'>
+                <Typography sx={{ textAlign: 'center' }} className='register_typography'>
                 Don't have an account?{' '}
                 <Link
                 to="/register"
@@ -122,7 +123,8 @@ function LoginForm(){
                 Sign up
                 </Link>
             </Typography>
-            {error && <p style={{color: 'red'}}>{error}</p>}
+            {error && <p className='login-error'>{error}</p>}
+            </form>
         </div>
     )
 };

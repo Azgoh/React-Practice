@@ -9,6 +9,7 @@ import { GoogleIcon } from '../icons/CustomIcons';
 import { Button, Divider, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { API_BASE_URL, OAUTH2_BASE_URL } from '../config/Config';
+import Header from './Header';
 
 
 function SignUpForm() {
@@ -119,6 +120,7 @@ function SignUpForm() {
 
     return(
         <div className='register-wrapper'>
+            <Header shownav={false}></Header>
             <form onSubmit={handleSubmit} className='register-form'>
                 <h1 className='register-h1'>Sign Up</h1>
                 <h3 className='register-h3'>Sign up to continue</h3>
@@ -147,8 +149,7 @@ function SignUpForm() {
                 >
                 Continue with Google
                 </Button>
-            </form>
-            <Typography sx={{ textAlign: 'center' }} className='login_typography'>
+                <Typography sx={{ textAlign: 'center' }} className='login_typography'>
                 Already have an account?{' '}
                 <Link
                 to="/login"
@@ -157,8 +158,10 @@ function SignUpForm() {
                 Sign in
                 </Link>
             </Typography>
-            {message && <p style={{color: 'green'}}>{message}</p>}
-            {error && <p style={{color: 'red'}}>{error}</p>}
+            {message && <p className='register-success-message'>{message}</p>}
+            {error && <p className='register-error'>{error}</p>}
+            </form>
+
         </div>
     )
 }

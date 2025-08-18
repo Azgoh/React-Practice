@@ -1,9 +1,6 @@
 .register-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 1rem;
+  display: grid;
+  grid-template-rows: auto 1fr;
   height: 100vh;
   width: 100vw;
 }
@@ -31,7 +28,9 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   height: auto;
   margin-bottom: 1rem;
-  min-height: 400px;
+  min-height: 40%;
+  align-self: center;
+  justify-self: center;
 }
 
 .login_typography{
@@ -86,9 +85,16 @@
   background-color: #0056b3;
 }
 
-p {
+.register-error {
   font-size: 0.8rem;
   color: red;
+  align-self: center;
+}
+
+.register-success-message{
+  font-size: 0.8rem;
+  color: green;
+  align-self: center;
 }
 
 .register-input:hover{
