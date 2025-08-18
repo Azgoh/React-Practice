@@ -1,8 +1,9 @@
 .register-wrapper {
   display: grid;
   grid-template-rows: auto 1fr;
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  min-width: 100vw;
+  overflow-y: auto;
 }
 
 .register-h1{
@@ -49,7 +50,6 @@
 
 .password-container input {
   width: 100%;
-  padding-right: 40px;
 }
 
 .password-container span {
@@ -85,10 +85,15 @@
   background-color: #0056b3;
 }
 
-.register-error {
+.register-api-error {
   font-size: 0.8rem;
   color: red;
   align-self: center;
+}
+
+.register-input-error{
+  font-size: 0.8rem;
+  color: red;
 }
 
 .register-success-message{
@@ -104,15 +109,4 @@
 .register-input:focus{
   border: 1px solid blue;
   outline: none;
-}
-
-@media (max-width: 480px) {
-  .register-form {
-    padding: 1.5rem 1rem;
-  }
-
-  .register-input, .register-btn {
-    font-size: 0.95rem;
-    padding: 0.65rem;
-  }
 }

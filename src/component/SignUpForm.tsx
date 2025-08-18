@@ -1,169 +1,129 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from 'react';
-import axios from 'axios';
-import type { RegisterRequestDto } from '../interface/RegisterRequestDto';
-import * as FaIcons from 'react-icons/fa';
-import './SignUpForm.css';
-import { Link } from 'react-router-dom';
-import { GoogleIcon } from '../icons/CustomIcons';
-import { Button, Divider, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { API_BASE_URL, OAUTH2_BASE_URL } from '../config/Config';
-import Header from './Header';
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import * as FaIcons from "react-icons/fa";
+import "./SignUpForm.css";
+import { Link } from "react-router-dom";
+import { GoogleIcon } from "../icons/CustomIcons";
+import { Button, Divider, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { API_BASE_URL, OAUTH2_BASE_URL } from "../config/Config";
+import Header from "./Header";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signUpSchema, type TSignUpScema } from "../lib/types";
 
+export default function SignUpForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting, isValid },
+  } = useForm<TSignUpScema>({
+    resolver: zodResolver(signUpSchema),
+    mode: "onTouched",
+  });
 
-function SignUpForm() {
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-    const [formData, setFormData] = useState<RegisterRequestDto>({
-        username: '',
-        email: '',
-        password: ''
-    });
+  const [apiError, setApiError] = useState<string | null>(null);
 
-    const [message, setMessage] = useState<string | null>(null);
-    const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
-    const [usernameError, setUsernameError] = useState<string | null>(null);
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
-    const [isUsernameValid, setIsUsernameValid] = useState<boolean>(false);
-
-    const [emailError, setEmailError] = useState<string | null>(null);
-
-    const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
-
-    const [passwordError, setPasswordError] = useState<string | null>(null);
-
-    const [showPassword, setShowPassword] = useState<boolean>(false);
-
-    const [isPasswordValid, setIsPasswordValid] = useState<boolean>(false);
-
-    const passwordRegex = /^[a-zA-Z0-9]{8,30}$/;
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    const passwordErrorMessage: string = "Password must be between 8-30 characters, only numbers and letters";
-
-    const navigate = useNavigate();
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        const {name, value} = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }))
-
-        if(name === "username"){
-            if(value.length < 5 && value.length > 0){
-                setUsernameError("Username must be at least 5 characters");
-                setIsUsernameValid(false);
-            }else{
-                setUsernameError(null);
-                setIsUsernameValid(true);
-            }
-        }
-
-        if(name === "email"){
-            if(!emailRegex.test(value) && value.length > 0){
-                setEmailError("Please enter a valid email address");
-                setIsEmailValid(false);
-            }else if (value.length == 0){
-                setEmailError(null);
-                setIsEmailValid(false);
-            } else {
-                setEmailError(null);
-                setIsEmailValid(true);
-            }
-        }
-
-        if(name === "password"){
-            if(value.length > 0 && !passwordRegex.test(value)){
-                setPasswordError(passwordErrorMessage);
-                setIsPasswordValid(false);
-            } else if(value.length == 0){
-                setIsPasswordValid(false);
-                setPasswordError(null);
-            } else {
-                setIsPasswordValid(true);
-                setPasswordError(null);
-            }
-        }
-    };
-
-    const isFormValid = (): boolean=> {
-        return isUsernameValid && isEmailValid && isPasswordValid;
+  const onSubmit = async (data: TSignUpScema): Promise<void> => {
+    setApiError(null);
+    setSuccessMessage(null);
+    try {
+      const response = await axios.post(`${API_BASE_URL}/register`, data, {
+        headers: { "Content-Type": "application/json" },
+      });
+      setSuccessMessage(response.data);
+      setApiError(null);
+    } catch (error: any) {
+      setApiError(error.response.data.message);
+      setSuccessMessage(null);
     }
+  };
 
-    const handleSubmit = async (e: React.FormEvent): Promise<void> => {
-        e.preventDefault();
-        setMessage(null);
-        setError(null);
 
-        try{
-            const response = await axios.post<string>(`${API_BASE_URL}/register`, formData,
-                {headers: { 'Content-Type': 'application/json' }}
-            );
-            setMessage(response.data);
-            navigate("/login");
+  return (
+    <div className="register-wrapper">
+      <Header shownav={false}></Header>
+      <form onSubmit={handleSubmit(onSubmit)} className="register-form">
+        <h1 className="register-h1">Sign Up</h1>
+        <h3 className="register-h3">Sign up to continue</h3>
 
-        } catch (err: any){
-            if(err.response?.data?.message){
-                setError(err.response.data.message);
-            } else {
-                setError("Registration failed. Please try again");
-            }
-        }
-    };
+        {errors.username && (
+          <p className="register-input-error">{`${errors.username.message}`}</p>
+        )}
+        <input
+          {...register("username")}
+          placeholder="Username"
+          className="register-input"
+        />
 
-    const togglePasswordVisibility = () => {
-        setShowPassword(prev => !prev);
-    };
+        {errors.email && (
+          <p className="register-input-error">{`${errors.email.message}`}</p>
+        )}
+        <input
+          {...register("email")}
+          type="email"
+          placeholder="Email"
+          className="register-input"
+        />
 
-    return(
-        <div className='register-wrapper'>
-            <Header shownav={false}></Header>
-            <form onSubmit={handleSubmit} className='register-form'>
-                <h1 className='register-h1'>Sign Up</h1>
-                <h3 className='register-h3'>Sign up to continue</h3>
-                <input name='username' placeholder='Username' value={formData.username} onChange={handleChange} required className='register-input'/>
-                {usernameError && <p>{usernameError}</p>}
-                <input name='email' type='email' placeholder='Email' value={formData.email} onChange={handleChange} required className='register-input'/>
-                {emailError &&  <p>{emailError}</p>}
-                <div className='password-container'>
-                    <input name='password' type={showPassword ? 'text' : 'password'} 
-                    placeholder='Password' value={formData.password} onChange={handleChange} autoComplete='new-password' required className='register-input'/>
-                    <span
-                    onClick={togglePasswordVisibility}>
-                    {showPassword ? <FaIcons.FaEyeSlash/> : <FaIcons.FaEye/>}
-                    </span>
-                </div>  
-                {passwordError && <p>{passwordError}</p>}
-                <button className='register-btn' type='submit' disabled={!isFormValid()}>Sign up</button>
-                <Divider>
-                    <Typography sx={{ color: 'text.secondary' }}>or</Typography>
-                </Divider>
-                <Button
-                fullWidth
-                variant="outlined"
-                onClick={() => { window.location.href = `${OAUTH2_BASE_URL}`;}}
-                startIcon={<GoogleIcon />}
-                >
-                Continue with Google
-                </Button>
-                <Typography sx={{ textAlign: 'center' }} className='login_typography'>
-                Already have an account?{' '}
-                <Link
-                to="/login"
-                className='login_link'
-                >
-                Sign in
-                </Link>
-            </Typography>
-            {message && <p className='register-success-message'>{message}</p>}
-            {error && <p className='register-error'>{error}</p>}
-            </form>
-
+        {errors.password && (
+          <p className="register-input-error">{`${errors.password.message}`}</p>
+        )}
+        <div className="password-container">
+          <input
+            {...register("password")}
+            name="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            autoComplete="new-password"
+            className="register-input"
+          />
+          <span onClick={togglePasswordVisibility}>
+            {showPassword ? <FaIcons.FaEyeSlash /> : <FaIcons.FaEye />}
+          </span>
         </div>
-    )
-}
 
-export default SignUpForm;
+        <button
+          className="register-btn"
+          type="submit"
+          disabled={isSubmitting || !isValid}
+        >
+          {isSubmitting ? "Submitting..." : "Sign up"}
+        </button>
+        <Divider>
+          <Typography sx={{ color: "text.secondary" }}>or</Typography>
+        </Divider>
+        <Button
+          fullWidth
+          variant="outlined"
+          onClick={() => {
+            window.location.href = `${OAUTH2_BASE_URL}`;
+          }}
+          startIcon={<GoogleIcon />}
+        >
+          Continue with Google
+        </Button>
+        <Typography sx={{ textAlign: "center" }} className="login_typography">
+          Already have an account?{" "}
+          <Link to="/login" className="login_link">
+            Sign in
+          </Link>
+        </Typography>
+
+        {successMessage && (
+          <p className="register-success-message">{successMessage}</p>
+        )}
+        {apiError && <p className="register-api-error">{apiError}</p>}
+      </form>
+    </div>
+  );
+}
