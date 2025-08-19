@@ -40,10 +40,8 @@ export default function SignUpForm() {
         headers: { "Content-Type": "application/json" },
       });
       setSuccessMessage(response.data);
-      setApiError(null);
     } catch (error: any) {
       setApiError(error.response.data.message);
-      setSuccessMessage(null);
     }
   };
 
