@@ -13,7 +13,7 @@ export default function Header({shownav= true}: HeaderProps) {
   return (
    <header className="header">
       <div className="header-left">
-        <Link to="/" className="logo"><img src={logo} alt="MyApp Logo" />
+        <Link to="/home" className="logo"><img src={logo} alt="MyApp Logo" />
              Expert services made easy
         </Link>
       </div>

@@ -10,7 +10,7 @@ import VerifyEmailPage from "./component/VerifyEmailPage";
 import { Toaster } from "react-hot-toast";
 
 function App() {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("jwt");
 
   return (
     <>
