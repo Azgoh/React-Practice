@@ -10,14 +10,14 @@ import { Button, Divider, Typography } from "@mui/material";
 import { API_BASE_URL, OAUTH2_BASE_URL } from "../config/Config";
 import Header from "./Header";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signUpSchema, type TSignUpScema } from "../lib/types";
+import { signUpSchema, type TSignUpSchema } from "../lib/types";
 
 export default function SignUpForm() {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting, isValid },
-  } = useForm<TSignUpScema>({
+  } = useForm<TSignUpSchema>({
     resolver: zodResolver(signUpSchema),
     mode: "onTouched",
   });
@@ -32,7 +32,7 @@ export default function SignUpForm() {
     setShowPassword((prev) => !prev);
   };
 
-  const onSubmit = async (data: TSignUpScema): Promise<void> => {
+  const onSubmit = async (data: TSignUpSchema): Promise<void> => {
     setApiError(null);
     setSuccessMessage(null);
     try {
