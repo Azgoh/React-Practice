@@ -4,7 +4,6 @@ import "./ProfRegister.css";
 import { API_BASE_URL } from "../config/Config";
 import axios from "axios";
 import Header from "./Header";
-import type { ErrorResponseDto } from "../interface/ErrorResponseDto";
 import { useForm } from "react-hook-form";
 import {
   professionalRegisterSchema,

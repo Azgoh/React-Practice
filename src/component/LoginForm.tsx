@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
-import type { LoginRequestDto } from "../interface/LoginRequestDto";
 import axios from "axios";
 import { API_BASE_URL, OAUTH2_BASE_URL } from "../config/Config";
 import * as FaIcons from "react-icons/fa";
