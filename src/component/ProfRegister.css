@@ -43,6 +43,12 @@
     border-radius: 4px;
 }
 
+.prof-register-input-error{
+    font-size: 0.8rem;
+    color: red;
+    margin-bottom: -1rem;
+}
+
 .prof-register-btn{
     background-color: #007bff;
     color: white;
@@ -68,6 +74,18 @@
 .prof-register-input:focus{
     border: 1px solid blue;
     outline: none;
+}
+
+.prof-register-api-error{
+    font-size: 0.8rem;
+    color: red;
+    align-self: center;
+}
+
+.prof-register-success-message{
+    font-size: 0.8rem;
+    color: green;
+    align-self: center;
 }
 
 @media (max-width: 480px) {

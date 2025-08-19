@@ -1,74 +1,116 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from 'react';
-import './ProfRegister.css';
-import type { ProfessionalRegisterDto } from '../interface/ProfessionalRegisterDto';
-import { API_BASE_URL } from '../config/Config';
-import axios from 'axios';
-import Header from './Header';
-import type { ErrorResponseDto } from '../interface/ErrorResponseDto';
+import React, { useState } from "react";
+import "./ProfRegister.css";
+import { API_BASE_URL } from "../config/Config";
+import axios from "axios";
+import Header from "./Header";
+import type { ErrorResponseDto } from "../interface/ErrorResponseDto";
+import { useForm } from "react-hook-form";
+import {
+  professionalRegisterSchema,
+  type TProfessionalRegisterSchema,
+} from "../lib/types";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function ProfRegister() {
-
-  const [formData, setFormData] = useState<ProfessionalRegisterDto>({
-    fullName: '',
-    profession: '',
-    location: '',
-    description: '',
-    phone: ''
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting, isValid },
+  } = useForm<TProfessionalRegisterSchema>({
+    resolver: zodResolver(professionalRegisterSchema),
+    mode: "onTouched",
   });
 
-  const [error, setError] = useState<ErrorResponseDto>({
-    message: '',
-    status: 0,
-    timestamp: new Date(),
-  });
+  const [apiError, setApiError] = useState<string | null>(null);
 
-  const handleChange= (e: React.ChangeEvent<HTMLInputElement>): void => {
-     const {name, value} = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }))
-  }
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
-      e.preventDefault();
+  const onSubmit = async (data: TProfessionalRegisterSchema): Promise<void> => {
+    setSuccessMessage(null);
+    setApiError(null);
+    try {
       const jwt = sessionStorage.getItem("jwt");
-      try{
-        const response = await axios.post(`${API_BASE_URL}/professionals/register`
-          ,formData
-          , {headers: { 'Content-Type': 'application/json',
-            Authorization: `Bearer ${jwt}`
-          }}
-        )
-
-        console.log(response.data);
-      } catch (err: any){
-          const backendError: ErrorResponseDto = JSON.parse(err.request.response || '{}');
-          setError(backendError);
-          console.error(error)
-      }
-  }
+      const response = await axios.post(
+        `${API_BASE_URL}/professionals/register`,
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
+      setSuccessMessage(response.data);
+    } catch (error: any) {
+      console.error(error);
+      setApiError(error.response.data.message);
+    }
+  };
 
   return (
-    <div className='prof-register-wrapper'>
+    <div className="prof-register-wrapper">
       <Header shownav={false}></Header>
-      <form onSubmit={handleSubmit} className='prof-register-form'>
-          <h1 className='prof-register-h1'>Register as a Professional</h1>
-          <h3 className='prof-register-h3'>Your Full Name</h3>
-          <input name='fullName' placeholder='Full Name' value={formData.fullName} onChange={handleChange} required className='prof-register-input'/>
-          <h3 className='prof-register-h3'>Your Profession</h3>
-          <input name='profession' placeholder='Profession' value={formData.profession} onChange={handleChange} required className='prof-register-input'/>
-          <h3 className='prof-register-h3'>Your Location</h3>
-          <input name='location' placeholder='Location' value={formData.location} onChange={handleChange} required className='prof-register-input'/>
-          <h3 className='prof-register-h3'>Add a Short Description</h3>
-          <input name='description' placeholder='Description' value={formData.description} onChange={handleChange} className='prof-register-input'/>
-          <h3 className='prof-register-h3'>Your Phone Number</h3>
-          <input name='phone' placeholder='Phone Number' value={formData.phone} onChange={handleChange} required className='prof-register-input'/>
-          <button className='prof-register-btn' type='submit' disabled={false}>Register as a Professional</button>
-          {error && <p style={{color: 'red'}}>{error.message}</p>} 
+      <form onSubmit={handleSubmit(onSubmit)} className="prof-register-form">
+        <h1 className="prof-register-h1">Register as a Professional</h1>
+        {errors.firstName && (
+          <p className="prof-register-input-error">{`${errors.firstName.message}`}</p>
+        )}
+        <input
+          {...register("firstName")}
+          placeholder="First Name"
+          className="prof-register-input"
+        />
+        {errors.lastName && (
+          <p className="prof-register-input-error">{`${errors.lastName.message}`}</p>
+        )}
+        <input
+          {...register("lastName")}
+          placeholder="Last Name"
+          className="prof-register-input"
+        />
+        {errors.profession && (
+          <p className="prof-register-input-error">{`${errors.profession.message}`}</p>
+        )}
+        <input
+          {...register("profession")}
+          placeholder="Profession"
+          className="prof-register-input"
+        />
+        {errors.location && (
+          <p className="prof-register-input-error">{`${errors.location.message}`}</p>
+        )}
+        <input
+          {...register("location")}
+          placeholder="Location"
+          className="prof-register-input"
+        />
+        {errors.description && (
+          <p className="prof-register-input-error">{`${errors.description.message}`}</p>
+        )}
+        <input
+          {...register("description")}
+          placeholder="Description"
+          className="prof-register-input"
+        />
+        {errors.phone && (
+          <p className="prof-register-input-error">{`${errors.phone.message}`}</p>
+        )}
+        <input
+          {...register("phone")}
+          placeholder="Phone Number"
+          className="prof-register-input"
+        />
+        <button
+          className="prof-register-btn"
+          type="submit"
+          disabled={isSubmitting || !isValid}
+        >
+          Register as a Professional
+        </button>
+        {successMessage && (<p className="prof-register-success-message">{successMessage}</p>)}
+        {apiError && (<p className="prof-register-api-error">{apiError}</p>)}
       </form>
-      {/* {message && <p style={{color: 'green'}}>{message}</p>} */}
     </div>
-  )
+  );
 }
