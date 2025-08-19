@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React from "react";
 import "./ProfRegister.css";
 import { API_BASE_URL } from "../config/Config";
 import axios from "axios";
@@ -10,6 +10,7 @@ import {
   type TProfessionalRegisterSchema,
 } from "../lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
 
 export default function ProfRegister() {
   const {
@@ -21,13 +22,7 @@ export default function ProfRegister() {
     mode: "onTouched",
   });
 
-  const [apiError, setApiError] = useState<string | null>(null);
-
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
   const onSubmit = async (data: TProfessionalRegisterSchema): Promise<void> => {
-    setSuccessMessage(null);
-    setApiError(null);
     try {
       const jwt = sessionStorage.getItem("jwt");
       const response = await axios.post(
@@ -40,10 +35,9 @@ export default function ProfRegister() {
           },
         }
       );
-      setSuccessMessage(response.data);
+      toast.success(response.data);
     } catch (error: any) {
-      console.error(error);
-      setApiError(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -107,8 +101,6 @@ export default function ProfRegister() {
         >
           Register as a Professional
         </button>
-        {successMessage && (<p className="prof-register-success-message">{successMessage}</p>)}
-        {apiError && (<p className="prof-register-api-error">{apiError}</p>)}
       </form>
     </div>
   );

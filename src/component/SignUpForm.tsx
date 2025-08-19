@@ -11,6 +11,7 @@ import { API_BASE_URL, OAUTH2_BASE_URL } from "../config/Config";
 import Header from "./Header";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema, type TSignUpSchema } from "../lib/types";
+import { toast } from "react-hot-toast";
 
 export default function SignUpForm() {
   const {
@@ -22,10 +23,6 @@ export default function SignUpForm() {
     mode: "onTouched",
   });
 
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
-  const [apiError, setApiError] = useState<string | null>(null);
-
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const togglePasswordVisibility = () => {
@@ -33,15 +30,13 @@ export default function SignUpForm() {
   };
 
   const onSubmit = async (data: TSignUpSchema): Promise<void> => {
-    setApiError(null);
-    setSuccessMessage(null);
     try {
       const response = await axios.post(`${API_BASE_URL}/register`, data, {
         headers: { "Content-Type": "application/json" },
       });
-      setSuccessMessage(response.data);
+      toast.success(response.data);
     } catch (error: any) {
-      setApiError(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -114,11 +109,6 @@ export default function SignUpForm() {
             Sign in
           </Link>
         </Typography>
-
-        {successMessage && (
-          <p className="register-success-message">{successMessage}</p>
-        )}
-        {apiError && <p className="register-api-error">{apiError}</p>}
       </form>
     </div>
   );

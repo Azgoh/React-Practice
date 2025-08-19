@@ -11,6 +11,7 @@ import Header from "./Header";
 import { useForm } from "react-hook-form";
 import { loginSchema, type TLoginSchema } from "../lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
 
 export default function LoginForm() {
   const {
@@ -23,8 +24,6 @@ export default function LoginForm() {
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const [apiError, setApiError] = useState<string | null>(null);
-
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
@@ -32,7 +31,6 @@ export default function LoginForm() {
   };
 
   const onSubmit = async (data: TLoginSchema): Promise<void> => {
-    setApiError(null);
     try {
       const response = await axios.post(`${API_BASE_URL}/login`, data, {
         headers: { "Content-Type": "application/json" },
@@ -41,7 +39,7 @@ export default function LoginForm() {
       sessionStorage.setItem("jwt", jwt);
       navigate("/home");
     } catch (error: any) {
-      setApiError(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -92,7 +90,6 @@ export default function LoginForm() {
             Sign up
           </Link>
         </Typography>
-        {apiError && <p className="login-api-error">{apiError}</p>}
       </form>
     </div>
   );
