@@ -45,7 +45,6 @@ export default function SignUpForm() {
     }
   };
 
-
   return (
     <div className="register-wrapper">
       <Header shownav={false}></Header>
