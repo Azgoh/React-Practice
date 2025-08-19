@@ -78,7 +78,7 @@
   background-color: #0056b3;
 }
 
-.login-error {
+.login-api-error {
   font-size: 0.8rem;
   color: red;
   align-self: center;
@@ -93,13 +93,3 @@
   outline: none;
 }
 
-@media (max-width: 480px) {
-  .login-form {
-    padding: 1.5rem 1rem;
-  }
-
-  .login-input, .login-btn {
-    font-size: 0.95rem;
-    padding: 0.65rem;
-  }
-}

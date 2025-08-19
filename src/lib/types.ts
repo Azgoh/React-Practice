@@ -14,3 +14,10 @@ export const signUpSchema = z.object({
 });
 
 export type TSignUpSchema = z.infer<typeof signUpSchema>;
+
+export const loginSchema = z.object({
+  identifier: z.string(),
+  password: z.string(),
+});
+
+export type TLoginSchema = z.infer<typeof loginSchema>;
