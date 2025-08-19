@@ -85,15 +85,16 @@
   background-color: #0056b3;
 }
 
+.register-input-error{
+  font-size: 0.8rem;
+  color: red;
+  margin-bottom: -1rem;
+}
+
 .register-api-error {
   font-size: 0.8rem;
   color: red;
   align-self: center;
-}
-
-.register-input-error{
-  font-size: 0.8rem;
-  color: red;
 }
 
 .register-success-message{
