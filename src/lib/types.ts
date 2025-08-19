@@ -23,15 +23,9 @@ export const loginSchema = z.object({
 export type TLoginSchema = z.infer<typeof loginSchema>;
 
 export const professionalRegisterSchema = z.object({
-  firstName: z
-    .string()
-    .min(5, "First name must be at least 5 characters")
-    .max(20, "First name must not exceed 20 characters"),
-  lastName: z
-    .string()
-    .min(5, "Last name must be at least 5 characters")
-    .max(20, "Last name must not exceed 20 characters"),
-  profession: z.string().min(1, "Profession can't be empty"),
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
+  profession: z.string().min(1, "Profession is required"),
   location: z.string(),
   description: z
     .string()
@@ -43,4 +37,6 @@ export const professionalRegisterSchema = z.object({
     .regex(/^\d+$/, "Phone number can only contain numbers"),
 });
 
-export type TProfessionalRegisterSchema = z.infer<typeof professionalRegisterSchema>;
+export type TProfessionalRegisterSchema = z.infer<
+  typeof professionalRegisterSchema
+>;
