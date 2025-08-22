@@ -1,22 +1,19 @@
-/* Page wrapper */
 .account-page-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #f4f5f7; /* light greyish background */
+  background-color: #f4f5f7; 
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Body with sidebar + main content */
 .account-body {
   display: flex;
-  justify-content: flex-start; /* align sidebar more to the left */
+  justify-content: flex-start; 
   align-items: flex-start;
-  gap: 3rem; /* space between sidebar and main content */
+  gap: 3rem; 
   padding: 2rem;
 }
 
-/* Sidebar */
 .account-sidebar {
   width: 22rem;
   min-height: 70vh;
@@ -32,53 +29,48 @@
 .account-content {
   flex: 1;
   display: flex;
-  justify-content: center; /* centers card horizontally */
+  justify-content: center; 
   align-items: flex-start;
 }
 
-/* Sidebar menu links */
 .ps-menuitem-root {
   padding: 1rem 1.5rem;
-  color: #333; /* neutral dark text */
+  color: #333; 
   transition: background 0.2s, color 0.2s;
   border-radius: 0.5rem;
-  white-space: nowrap; /* prevents text truncation */
+  white-space: nowrap; 
 }
 
-/* Hover effect */
 .ps-menuitem-root:hover {
-  background: #e6f0ff; /* subtle blue highlight */
-  color: #004aad; /* darker blue text */
+  background: #e6f0ff; 
+  color: #004aad; 
   cursor: pointer;
 }
 
-/* Ensure submenu items fill full width */
 .ps-submenu .ps-menuitem-root {
-  display: block; /* make the whole row hoverable */
-  width: 100%; /* fill the container */
+  display: block;
+  width: 100%;
   padding: 0.75rem 1.5rem;
   color: #333;
   white-space: nowrap;
-  box-sizing: border-box; /* include padding in width */
+  box-sizing: border-box;
   border-radius: 0.5rem;
   background-color: red;
 }
 
-/* Hover effect now applies to full width */
 .ps-submenu .ps-menuitem-root:hover {
-  background: #e6f0ff; /* subtle blue highlight */
+  background: #e6f0ff; 
   color: #004aad;
   cursor: pointer;
 }
 
-/* Card inside main content */
 .account-card {
   background: white;
   padding: 2rem;
   border-radius: 0.75rem;
   box-shadow: 0 0.25rem 1rem rgba(0,0,0,0.1);
   width: 100%;
-  max-width: 50rem; /* card stays centered and doesn’t stretch too wide */
+  max-width: 50rem; 
   text-align: left;
 }
 
