@@ -9,17 +9,12 @@ import {
   FaHistory,
   FaHome,
   FaPaypal,
-  FaShoppingCart,
-  FaStar,
   FaUser,
 } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
-import { FacebookIcon } from "../icons/CustomIcons";
 import Header from "./Header";
 import "./MyAccount.css";
 
 export default function MyAccount() {
-  const [collapsed, setCollapsed] = useState(false);
   const jwt = sessionStorage.getItem("jwt");
 
   const getAccountInformation = async (): Promise<void> => {
@@ -31,6 +26,10 @@ export default function MyAccount() {
     });
     console.log(response);
   };
+
+  useEffect(() => {
+    getAccountInformation();
+  }, []);
 
   const [activePage, setActivePage] = useState("home");
 
@@ -53,57 +52,56 @@ export default function MyAccount() {
     }
   };
 
-  return(
-<div className="account-page-wrapper">
-    <Header shownav={false} />
-    <div className="account-body">
-      <aside className={`account-sidebar ${collapsed ? "collapsed" : ""}`}>
-        <Sidebar collapsed={false} width="22rem">
-          <Menu>
-            <MenuItem icon={<FaHome />} onClick={() => setActivePage("home")}>
-              Home
-            </MenuItem>
-            <MenuItem
-              icon={<FaCalendar />}
-              onClick={() => setActivePage("calendar")}
-            >
-              Calendar
-            </MenuItem>
-            <MenuItem
-              icon={<FaCalendarAlt />}
-              onClick={() => setActivePage("appointments")}
-            >
-              My Appointments
-            </MenuItem>
-            <SubMenu label="Settings" icon={<FaCog />} defaultOpen={true}>
-              <MenuItem
-                icon={<FaUser />}
-                onClick={() => setActivePage("profile")}
-              >
-                My Profile
+  return (
+    <div className="account-page-wrapper">
+      <Header shownav={false} />
+      <div className="account-body">
+        <aside className="account-sidebar">
+          <Sidebar collapsed={false} width="22rem">
+            <Menu>
+              <MenuItem icon={<FaHome />} onClick={() => setActivePage("home")}>
+                Home
               </MenuItem>
               <MenuItem
-                icon={<FaPaypal />}
-                onClick={() => setActivePage("payment-method")}
+                icon={<FaCalendar />}
+                onClick={() => setActivePage("calendar")}
               >
-                Payment Method
+                Calendar
               </MenuItem>
               <MenuItem
-                icon={<FaHistory />}
-                onClick={() => setActivePage("payment-history")}
+                icon={<FaCalendarAlt />}
+                onClick={() => setActivePage("appointments")}
               >
-                Payment History
+                My Appointments
               </MenuItem>
-            </SubMenu>
-          </Menu>
-        </Sidebar>
-      </aside>
+              <SubMenu label="Settings" icon={<FaCog />} defaultOpen={true}>
+                <MenuItem
+                  icon={<FaUser />}
+                  onClick={() => setActivePage("profile")}
+                >
+                  My Profile
+                </MenuItem>
+                <MenuItem
+                  icon={<FaPaypal />}
+                  onClick={() => setActivePage("payment-method")}
+                >
+                  Payment Method
+                </MenuItem>
+                <MenuItem
+                  icon={<FaHistory />}
+                  onClick={() => setActivePage("payment-history")}
+                >
+                  Payment History
+                </MenuItem>
+              </SubMenu>
+            </Menu>
+          </Sidebar>
+        </aside>
 
-      <main className="account-content">
-        <div className="account-card">{renderContent()}</div>
-      </main>
+        <main className="account-content">
+          <div className="account-card">{renderContent()}</div>
+        </main>
+      </div>
     </div>
-  </div>
   );
-  
 }
