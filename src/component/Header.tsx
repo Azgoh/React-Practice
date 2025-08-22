@@ -50,7 +50,7 @@ export default function Header({ shownav = true }: HeaderProps) {
             </Link>
           )}
           <Link to="/my-account" className="nav-link">
-            <FaUserCircle className="icon" /> My Account
+            <FaUserCircle className="icon" /> {user?.username}
           </Link>
         </nav>
       )}
