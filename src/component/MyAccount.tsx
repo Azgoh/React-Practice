@@ -18,13 +18,17 @@ export default function MyAccount() {
   const jwt = sessionStorage.getItem("jwt");
 
   const getAccountInformation = async (): Promise<void> => {
-    const response = await axios.get(`${API_BASE_URL}/me`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
-    console.log(response);
+    try {
+      const response = await axios.get(`${API_BASE_URL}/me`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
