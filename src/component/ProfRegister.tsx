@@ -86,6 +86,14 @@ export default function ProfRegister() {
           placeholder="Description"
           className="prof-register-input"
         />
+        {errors.hourlyRate && (
+          <p className="prof-register-input-error">{`${errors.hourlyRate.message}`}</p>
+        )}
+        <input
+          {...register("hourlyRate")}
+          placeholder="Hourly Rate"
+          className="prof-register-input"
+        />
         {errors.phone && (
           <p className="prof-register-input-error">{`${errors.phone.message}`}</p>
         )}

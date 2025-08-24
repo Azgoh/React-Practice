@@ -6,6 +6,7 @@ export interface Professional{
   profession: string;
   location: string;
   description: string;
+  hourlyRate: string;
   phone: string;
   ratingsReceived: Review[];
 }
