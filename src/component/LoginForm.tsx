@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { loginSchema, type TLoginSchema } from "../lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
+import { useUser } from "../context/UserContext";
 
 export default function LoginForm() {
   const {
@@ -21,6 +22,8 @@ export default function LoginForm() {
   } = useForm<TLoginSchema>({
     resolver: zodResolver(loginSchema),
   });
+
+  const {refreshUser} = useUser();
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -37,6 +40,7 @@ export default function LoginForm() {
       });
       const jwt = response.data;
       sessionStorage.setItem("jwt", jwt);
+      await refreshUser();
       navigate("/home");
     } catch (error: any) {
       toast.error(error.response.data.message);
