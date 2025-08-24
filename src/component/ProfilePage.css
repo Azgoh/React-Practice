@@ -1,0 +1,41 @@
+.profile-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.profile-card{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 50%;
+}
+
+.details-field{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.details-field h4{
+    margin-left: 5rem;
+}
+
+.details-field span{
+    margin-right: 5rem;
+}
+
+.profile-title{
+    color: #333;
+    text-align: center;
+}
+
+.profile-fields-divider{
+    width: 95%;
+}
+
+.vertical-divider {
+  background-color: #ccc;       /* color of the divider */
+  transform: translateX(-1.3rem); /* shift left by 1rem */
+}
