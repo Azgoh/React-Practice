@@ -45,7 +45,7 @@ export default function LoginForm() {
 
   return (
     <div className="login-wrapper">
-      <Header shownav={false}></Header>
+      <Header></Header>
       <form onSubmit={handleSubmit(onSubmit)} className="login-form">
         <h1 className="login-h1">Log in to continue</h1>
         <input

@@ -1,6 +1,4 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { API_BASE_URL } from "../config/Config";
+import React, { useState } from "react";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import {
   FaCalendar,
@@ -13,27 +11,9 @@ import {
 } from "react-icons/fa";
 import Header from "./Header";
 import "./MyAccount.css";
+import { ProfilePage } from "./ProfilePage";
 
 export default function MyAccount() {
-  const jwt = sessionStorage.getItem("jwt");
-
-  const getAccountInformation = async (): Promise<void> => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/me`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${jwt}`,
-        },
-      });
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    getAccountInformation();
-  }, []);
 
   const [activePage, setActivePage] = useState("home");
 
@@ -46,7 +26,7 @@ export default function MyAccount() {
       case "appointments":
         return <h2>Your Appointments</h2>;
       case "profile":
-        return <h2>My Profile Info</h2>;
+        return <ProfilePage/>;
       case "payment-method":
         return <h2>Payment Method</h2>;
       case "payment-history":
@@ -58,7 +38,7 @@ export default function MyAccount() {
 
   return (
     <div className="account-page-wrapper">
-      <Header shownav={false} />
+      <Header />
       <div className="account-body">
         <aside className="account-sidebar">
           <Sidebar collapsed={false} width="22rem">

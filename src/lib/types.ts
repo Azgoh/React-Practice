@@ -31,14 +31,14 @@ export const professionalRegisterSchema = z.object({
     .string()
     .max(100, "Description must not exceed 100 characters")
     .optional(),
-  hourlyRate: z
-    .string()
-    .min(1, "Hourly rate is required")
-    .regex(/^\d+$/, "Hourly rate can only contain numbers"),
   phone: z
     .string()
     .length(10, "Phone number must be exactly 10 digits")
     .regex(/^\d+$/, "Phone number can only contain numbers"),
+  hourlyRate: z
+    .string()
+    .min(1, "Hourly rate is required")
+    .regex(/^\d+$/, "Hourly rate can only contain numbers")
 });
 
 export type TProfessionalRegisterSchema = z.infer<

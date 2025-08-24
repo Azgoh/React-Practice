@@ -4,20 +4,20 @@ import { FaSearch } from 'react-icons/fa';
 import './SearchBar.css';
 import axios from 'axios';
 import { API_BASE_URL } from '../config/Config';
-import type { Professional } from '../interface/Professional';
+import type { ProfessionalProfile } from '../interface/ProfessionalProfile';
 import { FaTimes } from 'react-icons/fa';
 
 export const SearchBar = () => {
 
     const [input, setInput] = useState<string>("");
-    const [professionals, setProfessionals] = useState<Professional[]>([]);
-    const [filtered, setFiltered] = useState<Professional[]>([]);
+    const [professionals, setProfessionals] = useState<ProfessionalProfile[]>([]);
+    const [filtered, setFiltered] = useState<ProfessionalProfile[]>([]);
     const [focused, setFocused] = useState<boolean>(false); 
 
     useEffect(() => {
         const getProfessionals = async (): Promise<void> => {
             try{
-                const res = await axios.get<Professional[]>(`${API_BASE_URL}/professionals`);
+                const res = await axios.get<ProfessionalProfile[]>(`${API_BASE_URL}/professionals`);
                 setProfessionals(res.data);
                 setFiltered(res.data);
             } catch (err){
@@ -44,7 +44,7 @@ export const SearchBar = () => {
         setFiltered(filteredProfs);
     }, [input, professionals]);
 
-    const handleSelectProf = (prof: Professional): void => {
+    const handleSelectProf = (prof: ProfessionalProfile): void => {
         setInput(`${prof.profession}`);
         setFocused(false);
     }

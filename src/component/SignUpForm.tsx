@@ -42,7 +42,7 @@ export default function SignUpForm() {
 
   return (
     <div className="register-wrapper">
-      <Header shownav={false}></Header>
+      <Header></Header>
       <form onSubmit={handleSubmit(onSubmit)} className="register-form">
         <h1 className="register-h1">Sign Up</h1>
         <h3 className="register-h3">Sign up to continue</h3>
