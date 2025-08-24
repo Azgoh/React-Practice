@@ -11,8 +11,11 @@ import {
 } from "../lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
+import { useUser } from "../context/UserContext";
 
 export default function ProfRegister() {
+  const { refreshUser } = useUser();
+
   const {
     register,
     handleSubmit,
@@ -35,6 +38,7 @@ export default function ProfRegister() {
           },
         }
       );
+      await refreshUser();
       toast.success(response.data);
     } catch (error: any) {
       toast.error(error.response.data.message);
@@ -43,7 +47,7 @@ export default function ProfRegister() {
 
   return (
     <div className="prof-register-wrapper">
-      <Header shownav={false}></Header>
+      <Header />
       <form onSubmit={handleSubmit(onSubmit)} className="prof-register-form">
         <h1 className="prof-register-h1">Register as a Professional</h1>
         {errors.firstName && (
@@ -86,20 +90,20 @@ export default function ProfRegister() {
           placeholder="Description"
           className="prof-register-input"
         />
-        {errors.hourlyRate && (
-          <p className="prof-register-input-error">{`${errors.hourlyRate.message}`}</p>
-        )}
-        <input
-          {...register("hourlyRate")}
-          placeholder="Hourly Rate"
-          className="prof-register-input"
-        />
         {errors.phone && (
           <p className="prof-register-input-error">{`${errors.phone.message}`}</p>
         )}
         <input
           {...register("phone")}
           placeholder="Phone Number"
+          className="prof-register-input"
+        />
+        {errors.hourlyRate && (
+          <p className="prof-register-input-error">{`${errors.hourlyRate.message}`}</p>
+        )}
+        <input
+          {...register("hourlyRate")}
+          placeholder="Hourly Rate"
           className="prof-register-input"
         />
         <button
