@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { API_BASE_URL } from "../config/Config";
-import type { UserProfile } from "../interface/UserProfile";
+import type { UserProfile } from "../interfaces/UserProfile";
 
 interface UserContextType {
   user: UserProfile | null;
