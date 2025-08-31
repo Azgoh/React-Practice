@@ -5,12 +5,12 @@ import axios from "axios";
 import * as FaIcons from "react-icons/fa";
 import "./SignUpForm.css";
 import { Link } from "react-router-dom";
-import { GoogleIcon } from "../icons/CustomIcons";
+import { GoogleIcon } from "../../icons/CustomIcons";
 import { Button, Divider, Typography } from "@mui/material";
-import { API_BASE_URL, OAUTH2_BASE_URL } from "../config/Config";
-import Header from "./Header";
+import { API_BASE_URL, OAUTH2_BASE_URL } from "../../config/Config";
+import Header from "../../components/Header/Header";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signUpSchema, type TSignUpSchema } from "../lib/types";
+import { signUpSchema, type TSignUpSchema } from "../../lib/types";
 import { toast } from "react-hot-toast";
 
 export default function SignUpForm() {

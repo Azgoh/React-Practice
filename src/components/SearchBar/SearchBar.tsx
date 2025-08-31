@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import './SearchBar.css';
 import axios from 'axios';
-import { API_BASE_URL } from '../config/Config';
-import type { ProfessionalProfile } from '../interface/ProfessionalProfile';
+import { API_BASE_URL } from '../../config/Config';
+import type { ProfessionalProfile } from '../../interface/ProfessionalProfile';
 import { FaTimes } from 'react-icons/fa';
 
 export const SearchBar = () => {

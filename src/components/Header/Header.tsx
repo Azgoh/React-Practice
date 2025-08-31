@@ -3,8 +3,8 @@ import React from "react";
 import "./Header.css";
 import { FaUserTie, FaUserCircle, FaEnvelope } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import logo from ".././/assets/Logo.png";
-import { useUser } from "../context/UserContext";
+import logo from "./../../assets/Logo.png";
+import { useUser } from "../../context/UserContext";
 
 export default function Header() {
   const { user, loading } = useUser();

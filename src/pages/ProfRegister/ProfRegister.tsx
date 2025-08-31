@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import "./ProfRegister.css";
-import { API_BASE_URL } from "../config/Config";
+import { API_BASE_URL } from "../../config/Config";
 import axios from "axios";
-import Header from "./Header";
+import Header from "../../components/Header/Header";
 import { useForm } from "react-hook-form";
 import {
   professionalRegisterSchema,
   type TProfessionalRegisterSchema,
-} from "../lib/types";
+} from "../../lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../../context/UserContext";
 
 export default function ProfRegister() {
   const { refreshUser } = useUser();

@@ -1,12 +1,12 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
-import SignUpForm from "./component/SignUpForm";
-import LoginForm from "./component/LoginForm";
-import HomePage from "./component/HomePage";
-import OAuth2RedirectHandler from "./component/OAuth2RedirectHandler";
-import MyAccount from "./component/MyAccount";
-import ProfRegister from "./component/ProfRegister";
-import VerifyEmailPage from "./component/VerifyEmailPage";
+import SignUpForm from "./pages/SignUpForm/SignUpForm";
+import LoginForm from "./pages/LoginForm/LoginForm";
+import HomePage from "./pages/HomePage/HomePage";
+import OAuth2RedirectHandler from "./pages/OAuth2Handler/OAuth2RedirectHandler";
+import MyAccount from "./pages/MyAccount/MyAccount";
+import ProfRegister from "./pages/ProfRegister/ProfRegister";
+import VerifyEmailPage from "./pages/VerifyEmailPage/VerifyEmailPage";
 import { Toaster } from "react-hot-toast";
 import { UserProvider } from "./context/UserContext";
 

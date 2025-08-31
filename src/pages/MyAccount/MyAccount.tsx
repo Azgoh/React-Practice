@@ -9,9 +9,9 @@ import {
   FaPaypal,
   FaUser,
 } from "react-icons/fa";
-import Header from "./Header";
+import Header from "../../components/Header/Header";
 import "./MyAccount.css";
-import { ProfilePage } from "./ProfilePage";
+import { ProfilePage } from "../../components/ProfilePage/ProfilePage";
 
 export default function MyAccount() {
 

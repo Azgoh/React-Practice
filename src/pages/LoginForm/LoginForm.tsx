@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import axios from "axios";
-import { API_BASE_URL, OAUTH2_BASE_URL } from "../config/Config";
+import { API_BASE_URL, OAUTH2_BASE_URL } from "../../config/Config";
 import * as FaIcons from "react-icons/fa";
 import "./LoginForm.css";
 import { Button, Divider, Typography } from "@mui/material";
-import { GoogleIcon } from "../icons/CustomIcons";
+import { GoogleIcon } from "../../icons/CustomIcons";
 import { Link, useNavigate } from "react-router-dom";
-import Header from "./Header";
+import Header from "../../components/Header/Header";
 import { useForm } from "react-hook-form";
-import { loginSchema, type TLoginSchema } from "../lib/types";
+import { loginSchema, type TLoginSchema } from "../../lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../../context/UserContext";
 
 export default function LoginForm() {
   const {
