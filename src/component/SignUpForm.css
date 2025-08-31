@@ -6,16 +6,15 @@
   overflow-y: auto;
 }
 
-.register-h1{
+.register-h1 {
   align-self: center;
   color: #333;
 }
 
-.register-h3{
+.register-h3 {
   align-self: center;
   color: grey;
 }
-
 
 .register-form {
   display: flex;
@@ -34,11 +33,11 @@
   justify-self: center;
 }
 
-.login_typography{
+.login_typography {
   color: grey;
 }
 
-.login_link:hover{
+.login_link:hover {
   color: #0056b3;
 }
 
@@ -59,7 +58,8 @@
   color: #555;
 }
 
-.register-input, .register-btn {
+.register-input,
+.register-btn {
   padding: 0.75rem;
   font-size: 1rem;
   border: 1px solid #ccc;
@@ -75,7 +75,7 @@
 }
 
 .register-btn:disabled {
-  background-color: #cccccc; 
+  background-color: #cccccc;
   color: #666666;
   cursor: not-allowed;
   opacity: 0.7;
@@ -85,7 +85,7 @@
   background-color: #0056b3;
 }
 
-.register-input-error{
+.register-input-error {
   font-size: 0.8rem;
   color: red;
   margin-bottom: -1rem;
@@ -97,17 +97,17 @@
   align-self: center;
 }
 
-.register-success-message{
+.register-success-message {
   font-size: 0.8rem;
   color: green;
   align-self: center;
 }
 
-.register-input:hover{
+.register-input:hover {
   border: 1px solid black;
 }
 
-.register-input:focus{
+.register-input:focus {
   border: 1px solid blue;
   outline: none;
 }

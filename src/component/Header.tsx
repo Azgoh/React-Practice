@@ -6,9 +6,8 @@ import { Link } from "react-router-dom";
 import logo from ".././/assets/Logo.png";
 import { useUser } from "../context/UserContext";
 
-
 export default function Header() {
-  const {user, loading} = useUser(); 
+  const { user, loading } = useUser();
 
   return (
     <header className="header">
