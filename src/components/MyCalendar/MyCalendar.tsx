@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { API_BASE_URL } from "../../config/Config";
 import {
   type Availability,
-  type AvailabilityBatchRequest,
   type AvailabilityEvent,
   type AvailabilityRequest,
+  type ExistingAvailabilityRequest,
 } from "../../interfaces/Availability";
 import moment from "moment";
 import {
@@ -17,6 +17,7 @@ import {
 import "./MyCalendar.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { CalendarEventPopUp } from "../CalendarEventPopUp/CalendarEventPopUp";
+import toast from "react-hot-toast";
 
 export default function MyCalendar() {
   moment.locale("en-gb");
@@ -66,7 +67,7 @@ export default function MyCalendar() {
     if (professionalAvailability) {
       const mappedEvents = professionalAvailability.map((slot) => ({
         id: slot.id,
-        title: "Available Slot",
+        title: slot.title,
         start: moment(
           `${slot.date} ${slot.startTime}`,
           "D MMMM YYYY HH:mm:ss"
@@ -81,18 +82,6 @@ export default function MyCalendar() {
       setEvents([]);
     }
   }, [professionalAvailability]);
-
-  function convertEventToBatch(
-    event: AvailabilityEvent
-  ): AvailabilityBatchRequest {
-    const availability: AvailabilityRequest = {
-      date: moment(event.start).format("D MMMM YYYY"),
-      startTime: moment(event.start).format("HH:mm:ss"),
-      endTime: moment(event.end).format("HH:mm:ss"),
-    };
-
-    return { availabilities: [availability] };
-  }
 
   const handleSelectEvent = (event: AvailabilityEvent) => {
     setSelectedSlot(null);
@@ -114,13 +103,17 @@ export default function MyCalendar() {
   const handleSave = async (eventData: AvailabilityEvent) => {
     try {
       const jwt = sessionStorage.getItem("jwt");
-      const batchRequest = convertEventToBatch(eventData);
       if (eventData.id) {
-        // TODO: Handle editted availability slot
-      } else {
-        await axios.post(
-          `${API_BASE_URL}/availability/professional/me/save`,
-          batchRequest,
+        const existingAvailabilityRequest: ExistingAvailabilityRequest = {
+          id: eventData.id,
+          title: eventData.title,
+          date: moment(eventData.start).format("D MMMM YYYY"),
+          startTime: moment(eventData.start).format("HH:mm:ss"),
+          endTime: moment(eventData.end).format("HH:mm:ss"),
+        };
+        await axios.put(
+          `${API_BASE_URL}/availability/professional/edit`,
+          existingAvailabilityRequest,
           {
             headers: {
               "Content-Type": "application/json",
@@ -128,23 +121,70 @@ export default function MyCalendar() {
             },
           }
         );
+        setEvents((prevEvents) => {
+          return prevEvents.map((ev) =>
+            ev.id === eventData.id ? eventData : ev
+          );
+        });
+      } else {
+        const availabilityRequest: AvailabilityRequest = {
+          title: eventData.title,
+          date: moment(eventData.start).format("D MMMM YYYY"),
+          startTime: moment(eventData.start).format("HH:mm:ss"),
+          endTime: moment(eventData.end).format("HH:mm:ss"),
+        };
+        const response = await axios.post(
+          `${API_BASE_URL}/availability/professional/me/save`,
+          availabilityRequest,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${jwt}`,
+            },
+          }
+        );
+        const savedEvent: AvailabilityEvent = {
+          id: response.data.id,
+          title: response.data.title,
+          start: moment(
+            `${response.data.date} ${response.data.startTime}`,
+            "D MMMM YYYY HH:mm:ss"
+          ).toDate(),
+          end: moment(
+            `${response.data.date} ${response.data.endTime}`,
+            "D MMMM YYYY HH:mm:ss"
+          ).toDate(),
+        };
+        setEvents((prevEvents) => [...prevEvents, savedEvent]);
       }
     } catch (error) {
       console.error(error);
     }
 
-    setEvents((prev) => {
-      const existingIndex = prev.findIndex((ev) => ev.id === eventData.id);
-      if (existingIndex !== -1) {
-        const updated = [...prev];
-        updated[existingIndex] = eventData;
-        return updated;
-      } else {
-        return [...prev, eventData];
-      }
-    });
-
     setIsOpenEvent(false);
+  };
+
+  const handleDelete = async (id: number): Promise<void> => {
+    try {
+      const jwt = sessionStorage.getItem("jwt");
+      await axios.delete(
+        `${API_BASE_URL}/availability/professional/delete/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
+      toast.success("Successful deletion", { position: "bottom-center" });
+      setEvents((prevEvents) => prevEvents.filter((ev) => ev.id !== id));
+      setIsOpenEvent(false);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to delete availability", {
+        position: "bottom-center",
+      });
+    }
   };
 
   return (
@@ -164,15 +204,6 @@ export default function MyCalendar() {
           style={{ height: "75vh" }}
           onSelectSlot={handleSelectSlot}
           onSelectEvent={handleSelectEvent}
-          slotPropGetter={(date: Date) => {
-            const now = new Date();
-            if (date.getTime() < now.getTime()) {
-              return {
-                className: "",
-              };
-            }
-            return {};
-          }}
         />
       </div>
       {isOpenEvent && (
@@ -181,6 +212,7 @@ export default function MyCalendar() {
           slot={selectedSlot}
           onSave={handleSave}
           event={selectedEvent}
+          onDelete={handleDelete}
         />
       )}
     </>

@@ -1,8 +1,24 @@
 export interface Availability{
     id: number;
+    title: string;
     date: string;
     startTime: string;
     endTime: string;
+}
+
+export interface AvailabilityRequest {
+  title: string;
+  date: string;      
+  startTime: string;  
+  endTime: string;   
+}
+
+export interface ExistingAvailabilityRequest{
+  id: number;
+  title: string;
+  date: string;
+  startTime: string;
+  endTime: string;
 }
 
 export interface AvailabilityEvent{
@@ -10,14 +26,4 @@ export interface AvailabilityEvent{
     title: string;
     start: Date;
     end: Date;
-}
-
-export interface AvailabilityRequest {
-  date: string;      
-  startTime: string;  
-  endTime: string;   
-}
-
-export interface AvailabilityBatchRequest {
-  availabilities: AvailabilityRequest[];
 }
