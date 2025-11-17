@@ -1,0 +1,16 @@
+.profession-page {
+  padding: 20px;
+}
+
+.profession-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  text-transform: capitalize;
+}
+
+.professionals-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

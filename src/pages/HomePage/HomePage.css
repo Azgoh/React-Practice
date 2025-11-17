@@ -6,7 +6,8 @@
     "footer footer";
   grid-template-columns: minmax(150px, 20%) 1fr;
   grid-template-rows: auto 1fr auto;
-  height: 100vh;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f5f7fa 0%, #ffffff 50%);
 }
 
 .header-container {
@@ -19,13 +20,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;    
+  align-items: center;
   padding: 1rem;
   width: 100%;
   transform: translate(-10%, -20%);
 }
 
-.search-heading{
+.search-heading {
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
   font-weight: 600;
@@ -35,4 +36,12 @@
 .footer-container {
   grid-area: footer;
   background: #f5f5f5;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding: 20px;
+  margin-top: 3rem;
 }

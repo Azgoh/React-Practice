@@ -1,0 +1,80 @@
+.professional-card {
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-bottom: 20px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.professional-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+.card-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.header {
+  margin-bottom: 10px;
+}
+
+.name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.profession {
+  font-weight: 500;
+  color: #374151;
+}
+
+.description {
+  font-size: 0.95rem;
+  margin: 12px 0;
+  color: #4b5563;
+}
+
+.info {
+  display: flex;
+  gap: 16px;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  color: #4b5563;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  color: #374151;
+}
+
+.star {
+  color: #facc15;
+}
+
+.rate {
+  font-weight: 500;
+  color: #111827;
+}

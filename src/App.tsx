@@ -9,6 +9,8 @@ import ProfRegister from "./pages/ProfRegister/ProfRegister";
 import VerifyEmailPage from "./pages/VerifyEmailPage/VerifyEmailPage";
 import { Toaster } from "react-hot-toast";
 import { UserProvider } from "./context/UserContext";
+import ProfessionPage from "./pages/ProfessionPage/ProfessionPage";
+import ProfessionalCalendarPage from "./pages/ProfessionalCalendarPage/ProfessionalCalendarPage";
 
 function App() {
   const token = sessionStorage.getItem("jwt");
@@ -61,6 +63,14 @@ function App() {
           <Route path="/verify-email" element={<VerifyEmailPage />} />
           <Route path="/my-account" element={<MyAccount />} />
           <Route path="/register-professional" element={<ProfRegister />} />
+          <Route
+            path="/profession/:professionName"
+            element={<ProfessionPage />}
+          />
+          <Route
+            path="/professional/:id/calendar"
+            element={<ProfessionalCalendarPage />}
+          />
         </Routes>
       </UserProvider>
     </>

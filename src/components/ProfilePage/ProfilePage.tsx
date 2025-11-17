@@ -98,7 +98,7 @@ export const ProfilePage = () => {
           <Divider className="profile-fields-divider"></Divider>
           <span className="details-field">
             <h4>Hourly Rate</h4>
-            <span>{myAccount.professionalProfile?.hourlyRate} {"$"}</span>
+            <span>{myAccount.professionalProfile?.hourlyRate} {"€"}</span>
           </span>
         </div>
       )}
