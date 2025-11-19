@@ -1,0 +1,56 @@
+.appointments-page {
+  padding: 30px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.appointments-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #2d3748;
+  font-weight: 600;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.loading,
+.empty {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.appointments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.appointment-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease;
+}
+
+.appointment-card:hover {
+  transform: scale(1.02);
+}
+
+.appointment-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.appointment-header h2 {
+  font-size: 1.3rem;
+  color: #1a73e8;
+}
+
+.appointment-body p {
+  margin: 4px 0;
+  font-size: 1rem;
+  color: #444;
+}

@@ -85,14 +85,22 @@ export const ProfessionalCalendar: React.FC<ProfessionalCalendarProps> = ({
 
     if (!confirm) return;
 
-    // Fix booking appointments
-
     try {
-      await axios.post(`${API_BASE_URL}/appointments/book`, {
-        professionalId,
-        startTime: moment(slotInfo.start).format("YYYY-MM-DDTHH:mm:ss"),
-        endTime: moment(slotInfo.end).format("YYYY-MM-DDTHH:mm:ss"),
-      });
+      await axios.post(
+        `${API_BASE_URL}/appointments/book`,
+        {
+          professionalId,
+          date: moment(slotInfo.start).format("D MMMM YYYY"), 
+          startTime: moment(slotInfo.start).format("HH:mm"), 
+          endTime: moment(slotInfo.end).format("HH:mm"),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
+          },
+        }
+      );
+
       toast.success("Appointment booked successfully!");
       fetchAvailability();
     } catch (err) {
@@ -102,10 +110,19 @@ export const ProfessionalCalendar: React.FC<ProfessionalCalendarProps> = ({
   };
 
   return (
-    <div style={{margin: "0 auto", padding: "20px" }}>
+    <div style={{ margin: "0 auto", padding: "20px" }}>
       {professional && (
-        <h1 style={{ textAlign: "center", marginBottom: "20px", fontFamily: "Arial", fontWeight: "600", color: "#333" }}>
-          {professional.firstName} {professional.lastName}'s Availability - {professional.profession}
+        <h1
+          style={{
+            textAlign: "center",
+            marginBottom: "20px",
+            fontFamily: "Arial",
+            fontWeight: "600",
+            color: "#333",
+          }}
+        >
+          {professional.firstName} {professional.lastName}'s Availability -{" "}
+          {professional.profession}
         </h1>
       )}
       <Calendar

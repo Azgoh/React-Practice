@@ -14,6 +14,7 @@ import "./MyAccount.css";
 import { ProfilePage } from "../../components/ProfilePage/ProfilePage";
 import Calendar from "../../components/MyCalendar/MyCalendar";
 import { useUser } from "../../context/UserContext";
+import MyAppointments from "../../components/MyAppointments/MyAppointments";
 
 export default function MyAccount() {
   const [activePage, setActivePage] = useState("home");
@@ -26,7 +27,7 @@ export default function MyAccount() {
       case "calendar":
         return <Calendar />;
       case "appointments":
-        return <h2>Your Appointments</h2>;
+        return <h2><MyAppointments/></h2>;
       case "profile":
         return <ProfilePage />;
       case "payment-method":
