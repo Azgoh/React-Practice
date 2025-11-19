@@ -44,7 +44,6 @@ export const ProfessionalCalendar: React.FC<ProfessionalCalendarProps> = ({
 
   const fetchAvailability = async () => {
     try {
-      console.log(professionalId);
       const res = await axios.get(
         `${API_BASE_URL}/availability/professional/${professionalId}`
       );

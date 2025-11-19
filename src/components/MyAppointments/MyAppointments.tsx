@@ -29,8 +29,6 @@ export default function MyAppointments() {
     loadAppointments();
   }, []);
 
-  console.log(appointments)
-
   return (
     <>
       <div className="appointments-page">

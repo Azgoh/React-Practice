@@ -24,8 +24,6 @@ function HomePage() {
     new Set(professionals.map((p) => p.profession))
   ).filter((prof) => prof.toLowerCase().includes(search.toLowerCase()));
 
-  console.log(professions);
-
   return (
     <div className="home-page-container">
       <header className="header-container">
