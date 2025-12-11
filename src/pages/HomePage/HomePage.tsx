@@ -34,10 +34,10 @@ function HomePage() {
           <FaLightbulb style={{ marginRight: "0.5rem" }} />
           Expert solutions for you
         </div>
-        <SearchBar value={search} onChange={setSearch} />
+        <SearchBar value={search} onChange={setSearch} data-test="search-bar" />
         <div className="cards-container">
           {professions.map((prof, index) => (
-            <ProfessionCard key={index} profession={prof} />
+            <ProfessionCard key={index} profession={prof} data-test={`profession-card-${index}`} />
           ))}
         </div>
       </div>

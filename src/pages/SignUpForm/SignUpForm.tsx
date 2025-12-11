@@ -54,6 +54,7 @@ export default function SignUpForm() {
           {...register("username")}
           placeholder="Username"
           className="register-input"
+          data-test="register-username"
         />
 
         {errors.email && (
@@ -64,6 +65,7 @@ export default function SignUpForm() {
           type="email"
           placeholder="Email"
           className="register-input"
+          data-test="register-email"
         />
 
         {errors.password && (
@@ -77,6 +79,7 @@ export default function SignUpForm() {
             placeholder="Password"
             autoComplete="new-password"
             className="register-input"
+            data-test="register-password"
           />
           <span onClick={togglePasswordVisibility}>
             {showPassword ? <FaIcons.FaEyeSlash /> : <FaIcons.FaEye />}
@@ -87,6 +90,7 @@ export default function SignUpForm() {
           className="register-btn"
           type="submit"
           disabled={isSubmitting || !isValid}
+          data-test="register-btn"
         >
           {isSubmitting ? "Submitting..." : "Sign up"}
         </button>

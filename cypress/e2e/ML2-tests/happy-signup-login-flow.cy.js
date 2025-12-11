@@ -1,0 +1,63 @@
+describe("Happy Path: User signs up, logs in, selects a profession and books an appointment", () => {
+  it("allows a user to sign up, log in, browse professions and book an appointment", () => {
+    // Register a new user
+
+    cy.visit("/register");
+
+    cy.get('[data-test="register-username"]').type("John Test");
+    cy.get('[data-test="register-email"]').type("john@test.com");
+    cy.get('[data-test="register-password"]').type("123456789");
+    cy.get('[data-test="register-btn"]').click();
+
+    cy.contains(
+      "Registration successful! Please check your email to verify your account."
+    ).should("be.visible");
+
+    cy.request("POST", "http://localhost:8080/api/test/auto-verify", {
+      email: "john@test.com",
+    });
+
+    // Visit login page
+
+    cy.visit("/login");
+
+    // Log in
+
+    cy.get('[data-test="login-identifier"]').type("john@test.com");
+    cy.get('[data-test="login-password"]').type("123456789");
+    cy.get('[data-test="login-btn"]').click();
+
+    // After login -> redirect to home
+
+    cy.url().should("include", "/home");
+    cy.window().then((win) => {
+      const jwt = win.sessionStorage.getItem("jwt");
+      expect(jwt).to.exist;
+      // You can store it as an alias for reuse if needed
+      cy.wrap(jwt).as("jwt");
+    });
+    cy.get('[data-test="search-bar"]', { timeout: 10000 }).should("be.visible");
+
+    // SELECT A PROFESSION
+
+    cy.get('[data-test="profession-card-0"]').contains("Plumber").click();
+    cy.url().should("include", "/profession/Plumber");
+
+
+    // VIEW A PROFESSIONAL'S CALENDAR
+
+    cy.get('[data-test="professional-card-0"]').click();
+
+    cy.url().should("include", "/calendar");
+    cy.contains("Availability").should("be.visible");
+
+
+    cy.on("window:confirm", () => true);
+    
+    cy.get("[data-test='calendar-slot']").first().click();
+
+    cy.contains("Appointment booked successfully!", { timeout: 15000 }).should(
+      "be.visible"
+    );
+  });
+});

@@ -56,6 +56,7 @@ export default function LoginForm() {
           {...register("identifier")}
           placeholder="Username or email"
           className="login-input"
+          data-test="login-identifier"
         />
         <div className="password-container">
           <input
@@ -64,12 +65,13 @@ export default function LoginForm() {
             placeholder="Password"
             autoComplete="new-password"
             className="login-input"
+            data-test="login-password"
           />
           <span onClick={togglePasswordVisibility}>
             {showPassword ? <FaIcons.FaEyeSlash /> : <FaIcons.FaEye />}
           </span>
         </div>
-        <button className="login-btn" type="submit" disabled={isSubmitting}>
+        <button className="login-btn" type="submit" disabled={isSubmitting} data-test="login-btn">
           {isSubmitting ? "Submitting..." : "Login"}
         </button>
         <Divider>

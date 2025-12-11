@@ -47,11 +47,12 @@ export default function ProfessionPage() {
           </h1>
         )}
         <div className="professionals-column">
-          {professionals.map((pro) => (
+          {professionals.map((pro, index) => (
             <ProfessionalCard
               key={pro.id}
               {...pro}
               onClick={() => navigate(`/professional/${pro.id}/calendar`)}
+              data-test={`professional-card-${index}`}
             />
           ))}
         </div>

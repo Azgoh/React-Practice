@@ -7,6 +7,7 @@ import "./ProfessionalCard.css";
 
 interface ProfessionalCardProps extends Professional {
   onClick?: () => void;
+  "data-test"?: string;
 }
 
 export const ProfessionalCard: React.FC<ProfessionalCardProps> = ({
@@ -19,6 +20,7 @@ export const ProfessionalCard: React.FC<ProfessionalCardProps> = ({
   hourlyRate,
   reviewsReceived,
   onClick,
+  "data-test": dataTest
 }) => {
   const averageRating =
     reviewsReceived.length > 0
@@ -27,7 +29,7 @@ export const ProfessionalCard: React.FC<ProfessionalCardProps> = ({
       : 0;
 
   return (
-    <Card className="professional-card" onClick={onClick}>
+    <Card className="professional-card" onClick={onClick} data-test={dataTest}>
       <CardContent className="card-content">
         <div className="avatar">{firstName.charAt(0) + lastName.charAt(0)}</div>
         <div className="header">

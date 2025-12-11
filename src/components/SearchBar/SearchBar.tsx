@@ -7,10 +7,11 @@ import { FaTimes } from 'react-icons/fa';
 interface SearchBarProps {
   value: string;
   onChange: (val: string) => void;
+  "data-test"?: string;
 }
 
 
-export const SearchBar: React.FC<SearchBarProps> = ({ value, onChange }) => {
+export const SearchBar: React.FC<SearchBarProps> = ({ value, onChange, "data-test": dataTest }) => {
     const [focused, setFocused] = useState(false);
 
     return (
@@ -24,6 +25,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ value, onChange }) => {
                 onChange={(e) => onChange(e.target.value)}   
                 onFocus={() => setFocused(true)}
                 onBlur={() => setTimeout(() => setFocused(false), 150)}
+                data-test={dataTest}
             />
 
             {value && (

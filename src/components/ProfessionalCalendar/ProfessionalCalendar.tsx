@@ -59,6 +59,10 @@ export const ProfessionalCalendar: React.FC<ProfessionalCalendarProps> = ({
           `${slot.date} ${slot.endTime}`,
           "D MMMM YYYY HH:mm:ss"
         ).toDate(),
+        slotInfo: {
+          start: moment(`${slot.date} ${slot.startTime}`).toDate(),
+          end: moment(`${slot.date} ${slot.endTime}`).toDate(),
+        },
       }));
 
       setEvents(mappedEvents);
@@ -89,8 +93,8 @@ export const ProfessionalCalendar: React.FC<ProfessionalCalendarProps> = ({
         `${API_BASE_URL}/appointments/book`,
         {
           professionalId,
-          date: moment(slotInfo.start).format("D MMMM YYYY"), 
-          startTime: moment(slotInfo.start).format("HH:mm"), 
+          date: moment(slotInfo.start).format("D MMMM YYYY"),
+          startTime: moment(slotInfo.start).format("HH:mm"),
           endTime: moment(slotInfo.end).format("HH:mm"),
         },
         {
@@ -134,6 +138,16 @@ export const ProfessionalCalendar: React.FC<ProfessionalCalendarProps> = ({
         views={["day", "week", "month"]}
         step={30}
         onSelectSlot={handleSelectSlot}
+        components={{
+          event: ({ event }) => (
+            <div
+              data-test="calendar-slot"
+              onClick={() => handleSelectSlot(event.slotInfo)}
+            >
+              {event.title}
+            </div>
+          ),
+        }}
         style={{ height: "75vh" }}
       />
     </div>
