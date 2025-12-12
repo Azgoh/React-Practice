@@ -43,7 +43,8 @@ export default function LoginForm() {
       await refreshUser();
       navigate("/home");
     } catch (error: any) {
-      toast.error(error.response.data.message);
+      console.log(error)
+      toast.error(error.response.data);
     }
   };
 
