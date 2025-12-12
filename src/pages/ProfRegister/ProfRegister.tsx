@@ -57,6 +57,7 @@ export default function ProfRegister() {
           {...register("firstName")}
           placeholder="First Name"
           className="prof-register-input"
+          data-test="first-name-input"
         />
         {errors.lastName && (
           <p className="prof-register-input-error">{`${errors.lastName.message}`}</p>
@@ -65,6 +66,7 @@ export default function ProfRegister() {
           {...register("lastName")}
           placeholder="Last Name"
           className="prof-register-input"
+          data-test="last-name-input"
         />
         {errors.profession && (
           <p className="prof-register-input-error">{`${errors.profession.message}`}</p>
@@ -73,6 +75,7 @@ export default function ProfRegister() {
           {...register("profession")}
           placeholder="Profession"
           className="prof-register-input"
+          data-test="profession-input"
         />
         {errors.location && (
           <p className="prof-register-input-error">{`${errors.location.message}`}</p>
@@ -81,6 +84,7 @@ export default function ProfRegister() {
           {...register("location")}
           placeholder="Location"
           className="prof-register-input"
+          data-test="location-input"
         />
         {errors.description && (
           <p className="prof-register-input-error">{`${errors.description.message}`}</p>
@@ -89,6 +93,7 @@ export default function ProfRegister() {
           {...register("description")}
           placeholder="Description"
           className="prof-register-input"
+          data-test="description-input"
         />
         {errors.phone && (
           <p className="prof-register-input-error">{`${errors.phone.message}`}</p>
@@ -97,6 +102,7 @@ export default function ProfRegister() {
           {...register("phone")}
           placeholder="Phone Number"
           className="prof-register-input"
+          data-test="phone-input"
         />
         {errors.hourlyRate && (
           <p className="prof-register-input-error">{`${errors.hourlyRate.message}`}</p>
@@ -105,6 +111,7 @@ export default function ProfRegister() {
           {...register("hourlyRate")}
           placeholder="Hourly Rate"
           className="prof-register-input"
+          data-test="hourly-rate-input"
         />
         <button
           className="prof-register-btn"
