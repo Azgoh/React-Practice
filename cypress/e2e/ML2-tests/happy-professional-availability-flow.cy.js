@@ -34,7 +34,6 @@ describe("Professional availability flow", () => {
     cy.window().then((win) => {
       const jwt = win.sessionStorage.getItem("jwt");
       expect(jwt).to.exist;
-      // You can store it as an alias for reuse if needed
       cy.wrap(jwt).as("jwt");
     });
     cy.get('[data-test="search-bar"]', { timeout: 10000 }).should("be.visible");
@@ -74,14 +73,12 @@ describe("Professional availability flow", () => {
 
     cy.get(".rbc-calendar").should("exist");
 
-    // Pick a visible slot in the morning (index 2 or 3)
     cy.get(".rbc-day-slot")
       .last() // pick the last day column (e.g., Saturday)
       .within(() => {
         cy.get(".rbc-time-slot").first().click({ force: true }); // just click the first slot
       });
 
-    // Fill the pop-up that appears
     cy.contains("button", "Save").click();
 
     // Verify the event exists
@@ -89,44 +86,4 @@ describe("Professional availability flow", () => {
       "exist"
     );
   });
-
-  //   it("Creates an availability slot on the calendar", () => {
-  //     // Step into "My Account"
-
-  //     cy.get('[data-test="nav-my-account"]', { timeout: 10000 }).should("exist");
-  //     cy.get('[data-test="nav-my-account"]').click();
-  // You need to tell me the exact path to the calendar
-  // Assuming it's linked like:
-  // <Link to="/my-calendar">
-  //   cy.visit("/my-calendar"); // <-- adjust to your route
-
-  //   // Drag on the first time slot
-  //   cy.get(".rbc-time-slot")
-  //     .first()
-  //     .then(($slot) => {
-  //       const { x, y, width, height } = $slot[0].getBoundingClientRect();
-
-  //       cy.get(".rbc-time-view")
-  //         .trigger("mousedown", {
-  //           clientX: x + width / 2,
-  //           clientY: y + height / 3,
-  //           force: true,
-  //         })
-  //         .trigger("mousemove", {
-  //           clientX: x + width / 2,
-  //           clientY: y + height,
-  //           force: true,
-  //         })
-  //         .trigger("mouseup", { force: true });
-  //     });
-
-  //   // Fill popup
-  //   cy.get("input[type='text']").clear().type("Available Slot");
-  //   cy.contains("button", "Save").click();
-
-  //   // Check event exists
-  //   cy.contains(".rbc-event", "Available Slot", { timeout: 5000 }).should(
-  //     "exist"
-  //   );
-  //   });
 });

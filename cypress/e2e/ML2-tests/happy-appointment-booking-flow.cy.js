@@ -33,7 +33,6 @@ describe("Happy Path: User signs up, logs in, selects a profession and books an 
     cy.window().then((win) => {
       const jwt = win.sessionStorage.getItem("jwt");
       expect(jwt).to.exist;
-      // You can store it as an alias for reuse if needed
       cy.wrap(jwt).as("jwt");
     });
     cy.get('[data-test="search-bar"]', { timeout: 10000 }).should("be.visible");
