@@ -9,20 +9,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
+
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: npm install
 
       - name: Run Cypress tests
-        run: npx cypress run
+        run: npm run cy:run
 
       - name: Deploy frontend
-        if: success()   
+        if: success()
         run: |
           curl -X POST "https://api.render.com/v1/services/${{ secrets.FRONTEND_SERVICE_ID }}/deploys" \
           -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
