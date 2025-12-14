@@ -30,6 +30,8 @@ jobs:
 
       - name: Run Cypress tests
         run: npm run cy:run
+        env:
+          VITE_API_BASE_URL: https://beasy-api.onrender.com/api
 
       - name: Deploy frontend
         if: success()
