@@ -2,10 +2,15 @@ describe("Happy Path: User signs up, logs in, selects a profession and books an 
   it("allows a user to sign up, log in, browse professions and book an appointment", () => {
     // Register a new user
 
+
     cy.visit("/register");
 
-    cy.get('[data-test="register-username"]').type("John Test");
-    cy.get('[data-test="register-email"]').type("john@test.com");
+    const randomId = Cypress._.random(10000, 99999);
+    const username = `TestUser${randomId}`;
+    const email = `testuser${randomId}@test.com`;
+
+    cy.get('[data-test="register-username"]').type(username);
+    cy.get('[data-test="register-email"]').type(email);
     cy.get('[data-test="register-password"]').type("123456789");
     cy.get('[data-test="register-btn"]').click();
 
@@ -13,17 +18,13 @@ describe("Happy Path: User signs up, logs in, selects a profession and books an 
       "Registration successful! Please check your email to verify your account."
     ).should("be.visible");
 
-    cy.request("POST", "http://localhost:8080/api/test/auto-verify", {
-      email: "john@test.com",
-    });
-
     // Visit login page
 
     cy.visit("/login");
 
     // Log in
 
-    cy.get('[data-test="login-identifier"]').type("john@test.com");
+    cy.get('[data-test="login-identifier"]').type(email);
     cy.get('[data-test="login-password"]').type("123456789");
     cy.get('[data-test="login-btn"]').click();
 
@@ -42,7 +43,6 @@ describe("Happy Path: User signs up, logs in, selects a profession and books an 
     cy.get('[data-test="profession-card-0"]').contains("Plumber").click();
     cy.url().should("include", "/profession/Plumber");
 
-
     // VIEW A PROFESSIONAL'S CALENDAR
 
     cy.get('[data-test="professional-card-0"]').click();
@@ -50,9 +50,8 @@ describe("Happy Path: User signs up, logs in, selects a profession and books an 
     cy.url().should("include", "/calendar");
     cy.contains("Availability").should("be.visible");
 
-
     cy.on("window:confirm", () => true);
-    
+
     cy.get("[data-test='calendar-slot']").first().click();
 
     cy.contains("Appointment booked successfully!", { timeout: 15000 }).should(

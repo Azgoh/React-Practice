@@ -1,11 +1,16 @@
 describe("Unhappy Path: User fails to log in with invalid password", () => {
   it("prevents login when the password is incorrect", () => {
     // Visit the register page
+
     cy.visit("/register");
 
+    const randomId = Cypress._.random(10000, 99999);
+    const username = `TestUser${randomId}`;
+    const email = `testuser${randomId}@test.com`;
+
     // Fill in registration form
-    cy.get('[data-test="register-username"]').type("Jane Test");
-    cy.get('[data-test="register-email"]').type("jane@test.com");
+    cy.get('[data-test="register-username"]').type(username);
+    cy.get('[data-test="register-email"]').type(email);
     cy.get('[data-test="register-password"]').type("correctpassword");
     cy.get('[data-test="register-btn"]').click();
 
@@ -13,15 +18,12 @@ describe("Unhappy Path: User fails to log in with invalid password", () => {
     cy.contains(
       "Registration successful! Please check your email to verify your account."
     ).should("be.visible");
-
-    // Auto-verify via test endpoint
-    cy.request("POST", "http://localhost:8080/api/test/auto-verify", {
-      email: "jane@test.com",
-    });
+    
+    // Visit the login page
 
     // Attempt to log in with wrong password
     cy.visit("/login");
-    cy.get('[data-test="login-identifier"]').type("jane@test.com");
+    cy.get('[data-test="login-identifier"]').type(email);
     cy.get('[data-test="login-password"]').type("wrongpassword");
     cy.get('[data-test="login-btn"]').click();
 
