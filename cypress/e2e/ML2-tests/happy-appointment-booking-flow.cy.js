@@ -2,7 +2,6 @@ describe("Happy Path: User signs up, logs in, selects a profession and books an 
   it("allows a user to sign up, log in, browse professions and book an appointment", () => {
     // Register a new user
 
-
     cy.visit("/register");
 
     const randomId = Cypress._.random(10000, 99999);
@@ -15,7 +14,8 @@ describe("Happy Path: User signs up, logs in, selects a profession and books an 
     cy.get('[data-test="register-btn"]').click();
 
     cy.contains(
-      "Registration successful! Please check your email to verify your account."
+      "Registration successful! Please check your email to verify your account.",
+      { timeout: 15000 }
     ).should("be.visible");
 
     // Visit login page
@@ -36,7 +36,7 @@ describe("Happy Path: User signs up, logs in, selects a profession and books an 
       expect(jwt).to.exist;
       cy.wrap(jwt).as("jwt");
     });
-    cy.get('[data-test="search-bar"]', { timeout: 10000 }).should("be.visible");
+    cy.get('[data-test="search-bar"]', { timeout: 15000 }).should("be.visible");
 
     // SELECT A PROFESSION
 

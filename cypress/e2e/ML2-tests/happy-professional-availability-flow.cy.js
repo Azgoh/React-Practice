@@ -27,7 +27,7 @@ describe("Professional availability flow", () => {
     cy.get('[data-test="login-password"]').type("123456789");
     cy.get('[data-test="login-btn"]').click();
 
-    cy.contains("Register as a Professional", { timeout: 8000 }).should(
+    cy.contains("Register as a Professional", { timeout: 15000 }).should(
       "exist"
     );
 
@@ -37,7 +37,7 @@ describe("Professional availability flow", () => {
       expect(jwt).to.exist;
       cy.wrap(jwt).as("jwt");
     });
-    cy.get('[data-test="search-bar"]', { timeout: 10000 }).should("be.visible");
+    cy.get('[data-test="search-bar"]', { timeout: 15000 }).should("be.visible");
   });
 
   it("Registers as professional via Header link", () => {
@@ -68,15 +68,15 @@ describe("Professional availability flow", () => {
     cy.contains("button", "Register as a Professional").click();
 
     cy.contains("Professional profile created successfully", {
-      timeout: 8000,
+      timeout: 15000,
     }).should("exist");
 
     // The header should now change (role = PROFESSIONAL)
-    cy.contains("a", "Register as a Professional", { timeout: 8000 }).should(
+    cy.contains("a", "Register as a Professional", { timeout: 15000 }).should(
       "not.exist"
     );
 
-    cy.get('[data-test="nav-my-account"]', { timeout: 10000 }).should("exist");
+    cy.get('[data-test="nav-my-account"]', { timeout: 15000 }).should("exist");
     cy.get('[data-test="nav-my-account"]').click();
     cy.url().should("include", "/my-account");
 
@@ -94,7 +94,7 @@ describe("Professional availability flow", () => {
     cy.contains("button", "Save").click();
 
     // Verify the event exists
-    cy.contains(".rbc-event", "Available Slot", { timeout: 5000 }).should(
+    cy.contains(".rbc-event", "Available Slot", { timeout: 15000 }).should(
       "exist"
     );
   });

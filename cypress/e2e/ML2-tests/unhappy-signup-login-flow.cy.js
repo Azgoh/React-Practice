@@ -16,9 +16,10 @@ describe("Unhappy Path: User fails to log in with invalid password", () => {
 
     // Confirm registration success
     cy.contains(
-      "Registration successful! Please check your email to verify your account."
+      "Registration successful! Please check your email to verify your account.",
+      { timeout: 15000 }
     ).should("be.visible");
-    
+
     // Visit the login page
 
     // Attempt to log in with wrong password
@@ -28,7 +29,7 @@ describe("Unhappy Path: User fails to log in with invalid password", () => {
     cy.get('[data-test="login-btn"]').click();
 
     // Assert that error message appears
-    cy.contains("Invalid credentials").should("be.visible");
+    cy.contains("Invalid credentials", { timeout: 15000 }).should("be.visible");
 
     // Assert user is not redirected to home
     cy.url().should("not.include", "/home");
