@@ -52,7 +52,7 @@ describe("Happy Path: User signs up, logs in, selects a profession and books an 
 
     cy.on("window:confirm", () => true);
 
-    cy.get("[data-test='calendar-slot']").first().click();
+    cy.get("[data-test='calendar-slot']").last().click();
 
     cy.contains("Appointment booked successfully!", { timeout: 15000 }).should(
       "be.visible"
