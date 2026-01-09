@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import './SearchBar.css';
@@ -12,7 +11,7 @@ interface SearchBarProps {
 
 
 export const SearchBar: React.FC<SearchBarProps> = ({ value, onChange, "data-test": dataTest }) => {
-    const [focused, setFocused] = useState(false);
+    const [, setFocused] = useState(false);
 
     return (
         <div className='input-wrapper'>

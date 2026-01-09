@@ -5,6 +5,7 @@ import { Calendar, momentLocalizer, type SlotInfo } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import toast from "react-hot-toast";
 import { API_BASE_URL } from "../../config/Config";
+import type { Availability } from "../../interfaces/Availability";
 
 interface ProfessionalCalendarProps {
   professionalId: number;
@@ -49,7 +50,7 @@ export const ProfessionalCalendar: React.FC<ProfessionalCalendarProps> = ({
         `${API_BASE_URL}/availability/professional/${professionalId}`
       );
 
-      const mappedEvents = res.data.map((slot: any) => ({
+      const mappedEvents = res.data.map((slot: Availability) => ({
         id: slot.id,
         title: slot.title,
         start: moment(

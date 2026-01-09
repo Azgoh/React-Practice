@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { API_BASE_URL } from "../../config/Config";
 import {
   type Availability,
