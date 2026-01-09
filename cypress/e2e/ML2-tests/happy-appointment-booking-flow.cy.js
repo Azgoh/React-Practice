@@ -40,8 +40,8 @@ describe("Happy Path: User signs up, logs in, selects a profession and books an 
 
     // SELECT A PROFESSION
 
-    cy.get('[data-test="profession-card-0"]').contains("Plumber").click();
-    cy.url().should("include", "/profession/Plumber");
+    cy.get('[data-test="profession-card-1"]').contains("Electrician").click();
+    cy.url().should("include", "/profession/Electrician");
 
     // VIEW A PROFESSIONAL'S CALENDAR
 
