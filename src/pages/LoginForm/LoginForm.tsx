@@ -14,7 +14,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import { useUser } from "../../context/UserContext";
 
+/**
+ * LoginForm Component
+ * Provides user login via email/username and password with OAuth2 Google option.
+ * Handles form validation, API communication, and session token storage.
+ */
 export default function LoginForm() {
+  // Setup form with react-hook-form and zod validation
   const {
     register,
     handleSubmit,
@@ -23,27 +29,45 @@ export default function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
+  // User context for refreshing user info after successful login
   const {refreshUser} = useUser();
 
+  // Toggle for password visibility (show/hide)
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
+  // React Router navigation hook
   const navigate = useNavigate();
 
+  /**
+   * Toggle password input visibility between text and password type
+   */
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
 
+  /**
+   * Handle login form submission
+   * Authenticates user via API, stores JWT, refreshes user context, and navigates to home
+   */
   const onSubmit = async (data: TLoginSchema): Promise<void> => {
     try {
+      // Send login credentials to backend
       const response = await axios.post(`${API_BASE_URL}/login`, data, {
         headers: { "Content-Type": "application/json" },
       });
+      
+      // Store JWT token in session storage for authenticated requests
       const jwt = response.data;
       sessionStorage.setItem("jwt", jwt);
+      
+      // Refresh user context with latest user data
       await refreshUser();
+      
+      // Navigate to home page after successful login
       navigate("/home");
     } catch (error: any) {
       console.log(error)
+      // Show error toast notification to user
       toast.error(error.response.data);
     }
   };

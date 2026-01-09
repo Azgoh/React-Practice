@@ -16,19 +16,35 @@ import Calendar from "../../components/MyCalendar/MyCalendar";
 import { useUser } from "../../context/UserContext";
 import MyAppointments from "../../components/MyAppointments/MyAppointments";
 
+/**
+ * MyAccount Component
+ * User dashboard page with navigation sidebar for accessing profile, calendar, appointments, and settings.
+ * Shows different content based on selected menu item.
+ * Includes role-based rendering (professional calendar only for professionals).
+ */
 export default function MyAccount() {
+  // Track which page/section is currently displayed
   const [activePage, setActivePage] = useState("home");
+  
+  // Get current user info from context
   const { user } = useUser();
 
+  /**
+   * Render different content based on the active page selection
+   * Conditional rendering for professional-only sections
+   */
   const renderContent = () => {
     switch (activePage) {
       case "home":
         return <h2>Welcome to your Dashboard</h2>;
       case "calendar":
+        // Only professionals have access to their own calendar
         return <Calendar />;
       case "appointments":
+        // All users can view their appointments
         return <h2><MyAppointments/></h2>;
       case "profile":
+        // Display user profile information
         return <ProfilePage />;
       case "payment-method":
         return <h2>Payment Method</h2>;

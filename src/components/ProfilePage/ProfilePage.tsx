@@ -5,12 +5,26 @@ import { API_BASE_URL } from "../../config/Config";
 import { type UserWithProfessionalProfile } from "../../interfaces/UserWithProfessionalProfile";
 import { Divider } from "@mui/material";
 
+/**
+ * ProfilePage Component
+ * Displays the current user's profile information including username, email, role, and auth provider.
+ * If the user is also a professional, displays their professional profile details as well.
+ */
 export const ProfilePage = () => {
+  // Retrieve JWT token from session storage for API authentication
   const jwt = sessionStorage.getItem("jwt");
+  
+  // State management for user account data (includes both user and professional profiles)
   const [myAccount, setMyAccount] =
     useState<UserWithProfessionalProfile | null>(null);
+  
+  // Loading state while fetching profile data from API
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  /**
+   * Fetches the current user's account information from the backend API
+   * Uses JWT token for authorization
+   */
   const getMyAccountInformation = async (): Promise<void> => {
     try {
       const response = await axios.get(`${API_BASE_URL}/me`, {
@@ -27,6 +41,7 @@ export const ProfilePage = () => {
     }
   };
 
+  // Fetch account information on component mount
   useEffect(() => {
     getMyAccountInformation();
   }, []);

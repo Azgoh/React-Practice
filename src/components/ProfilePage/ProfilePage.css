@@ -1,3 +1,4 @@
+/* Main container holding both user and professional profile cards */
 .profile-container{
     display: flex;
     flex-direction: row;
@@ -5,6 +6,7 @@
     width: 100%;
 }
 
+/* Individual profile card styling */
 .profile-card{
     display: flex;
     flex-direction: column;
@@ -12,16 +14,19 @@
     min-width: 50%;
 }
 
+/* Field row containing label and value */
 .details-field{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
+/* Margin for field labels */
 .details-field h4{
     margin-left: 5rem;
 }
 
+/* Margin for field values */
 .details-field span{
     margin-right: 5rem;
 }

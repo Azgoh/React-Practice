@@ -1,5 +1,7 @@
+/* Profession card with subtle diagonal stripe pattern background */
 .profession-card {
   background-color: #f9fafb;
+  /* Subtle diagonal stripe texture */
   background-image: repeating-linear-gradient(
     45deg,
     rgba(0, 0, 0, 0.04),
@@ -20,15 +22,18 @@
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
+/* Hover effect: slight scale up with enhanced shadow */
 .profession-card:hover {
   transform: scale(1.03);
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
 }
 
+/* Container for the profession icon */
 .icon-wrapper {
   margin-bottom: 16px;
 }
 
+/* Profession name/title text */
 .profession-name {
   font-size: 1.2rem;
   font-weight: 600;

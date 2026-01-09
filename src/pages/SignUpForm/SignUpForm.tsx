@@ -13,29 +13,47 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema, type TSignUpSchema } from "../../lib/types";
 import { toast } from "react-hot-toast";
 
+/**
+ * SignUpForm Component
+ * Provides user registration with email, username, and password.
+ * Includes password visibility toggle and Google OAuth2 alternative.
+ * Uses Zod validation for form data.
+ */
 export default function SignUpForm() {
+  // Setup form with react-hook-form and zod validation
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting, isValid },
   } = useForm<TSignUpSchema>({
     resolver: zodResolver(signUpSchema),
-    mode: "onTouched",
+    mode: "onTouched", // Validate on field touch
   });
 
+  // Toggle for password visibility (show/hide)
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
+  /**
+   * Toggle password input visibility between text and password type
+   */
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
 
+  /**
+   * Handle signup form submission
+   * Sends registration data to backend API and displays success/error message
+   */
   const onSubmit = async (data: TSignUpSchema): Promise<void> => {
     try {
+      // Submit registration credentials to backend
       const response = await axios.post(`${API_BASE_URL}/register`, data, {
         headers: { "Content-Type": "application/json" },
       });
+      // Show success notification
       toast.success(response.data);
     } catch (error: any) {
+      // Show error notification with message from API
       toast.error(error.response.data.message);
     }
   };

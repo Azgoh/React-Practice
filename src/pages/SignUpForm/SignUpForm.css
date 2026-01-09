@@ -1,3 +1,4 @@
+/* Main wrapper with grid layout for header and form */
 .register-wrapper {
   display: grid;
   grid-template-rows: auto 1fr;
@@ -6,16 +7,19 @@
   overflow-y: auto;
 }
 
+/* Form title heading */
 .register-h1 {
   align-self: center;
   color: #333;
 }
 
+/* Secondary heading/subtitle */
 .register-h3 {
   align-self: center;
   color: grey;
 }
 
+/* Centered signup form card with white background */
 .register-form {
   display: flex;
   flex-direction: column;
@@ -33,24 +37,29 @@
   justify-self: center;
 }
 
+/* Login prompt text styling */
 .login_typography {
   color: grey;
 }
 
+/* Login link hover effect */
 .login_link:hover {
   color: #0056b3;
 }
 
+/* Password input with visibility toggle button */
 .password-container {
   position: relative;
   display: flex;
   align-items: center;
 }
 
+/* Make password input full width */
 .password-container input {
   width: 100%;
 }
 
+/* Eye icon toggle for show/hide password */
 .password-container span {
   position: absolute;
   right: 10px;
@@ -58,6 +67,7 @@
   color: #555;
 }
 
+/* Input fields and submit button base styles */
 .register-input,
 .register-btn {
   padding: 0.75rem;
@@ -66,6 +76,7 @@
   border-radius: 4px;
 }
 
+/* Primary signup button */
 .register-btn {
   background-color: #007bff;
   color: white;
@@ -74,6 +85,7 @@
   transition: background-color 0.2s ease;
 }
 
+/* Disabled button state during form submission */
 .register-btn:disabled {
   background-color: #cccccc;
   color: #666666;
@@ -81,32 +93,38 @@
   opacity: 0.7;
 }
 
+/* Button hover effect when enabled */
 .register-btn:not(:disabled):hover {
   background-color: #0056b3;
 }
 
+/* Validation error message styling */
 .register-input-error {
   font-size: 0.8rem;
   color: red;
   margin-bottom: -1rem;
 }
 
+/* API error message styling */
 .register-api-error {
   font-size: 0.8rem;
   color: red;
   align-self: center;
 }
 
+/* Success message styling */
 .register-success-message {
   font-size: 0.8rem;
   color: green;
   align-self: center;
 }
 
+/* Input field hover - add dark border */
 .register-input:hover {
   border: 1px solid black;
 }
 
+/* Input field focus - blue border and no outline */
 .register-input:focus {
   border: 1px solid blue;
   outline: none;

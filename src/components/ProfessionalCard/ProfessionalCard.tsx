@@ -5,11 +5,19 @@ import { Phone, MapPin, Star } from "lucide-react";
 import type { Professional } from "../../interfaces/Professional";
 import "./ProfessionalCard.css";
 
+/** Props for the ProfessionalCard component - extends Professional interface with event handlers */
 interface ProfessionalCardProps extends Professional {
+  /** Optional click handler for card interactions */
   onClick?: () => void;
+  /** Optional test identifier for E2E testing */
   "data-test"?: string;
 }
 
+/**
+ * ProfessionalCard Component
+ * Displays a professional's profile information in a Material-UI card format.
+ * Shows name, profession, description, contact info, ratings, and hourly rate.
+ */
 export const ProfessionalCard: React.FC<ProfessionalCardProps> = ({
   firstName,
   lastName,
@@ -22,6 +30,7 @@ export const ProfessionalCard: React.FC<ProfessionalCardProps> = ({
   onClick,
   "data-test": dataTest
 }) => {
+  // Calculate average rating from all reviews received, or 0 if no reviews
   const averageRating =
     reviewsReceived.length > 0
       ? reviewsReceived.reduce((sum, r) => sum + r.score, 0) /

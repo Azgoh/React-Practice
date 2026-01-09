@@ -1,3 +1,4 @@
+/* Main account page layout with light background */
 .account-page-wrapper {
   display: flex;
   flex-direction: column;
@@ -6,6 +7,7 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Horizontal layout with sidebar and content area */
 .account-body {
   display: flex;
   justify-content: flex-start; 
@@ -14,6 +16,7 @@
   padding: 2rem;
 }
 
+/* Left sidebar navigation menu */
 .account-sidebar {
   width: 22rem;
   min-height: 70vh;
@@ -27,6 +30,7 @@
   padding-top: 1rem;
 }
 
+/* Main content area for displaying different pages */
 .account-content {
   flex: 1;
   display: flex;
@@ -35,6 +39,7 @@
   padding: 1rem;
 }
 
+/* Menu item styling */
 .ps-menuitem-root {
   padding: 1rem 1.5rem;
   color: #333; 
@@ -43,12 +48,14 @@
   white-space: nowrap; 
 }
 
+/* Menu item hover effect with blue highlight */
 .ps-menuitem-root:hover {
   background: #e6f0ff; 
   color: #004aad; 
   cursor: pointer;
 }
 
+/* Submenu items (nested menu items) */
 .ps-submenu .ps-menuitem-root {
   display: block;
   width: 100%;
@@ -59,12 +66,14 @@
   border-radius: 0.5rem;
 }
 
+/* Submenu item hover effect */
 .ps-submenu .ps-menuitem-root:hover {
   background: #e6f0ff; 
   color: #004aad;
   cursor: pointer;
 }
 
+/* Content card container */
 .account-card {
   background: #f0f0f0;
   padding: 2rem;
@@ -75,6 +84,7 @@
   text-align: left;
 }
 
+/* Heading in account card */
 .account-card h2 {
   font-size: 1.5rem;
   color: #333;

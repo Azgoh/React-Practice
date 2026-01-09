@@ -4,11 +4,19 @@ import { Briefcase } from "lucide-react";
 import "./ProfessionCard.css";
 import { Link } from "react-router-dom";
 
+/** Props for the ProfessionCard component */
 export interface ProfessionCardProps {
+  /** Name of the profession to display */
   profession: string;
+  /** Optional test identifier for E2E testing */
   "data-test"?: string;
 }
 
+/**
+ * ProfessionCard Component
+ * Displays a clickable card representing a profession.
+ * Includes animation effects on hover and tap, and links to the profession detail page.
+ */
 export const ProfessionCard: React.FC<ProfessionCardProps> = ({
   profession,
   "data-test": dataTest,

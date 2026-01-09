@@ -1,6 +1,16 @@
 import * as React from 'react';
 import SvgIcon from '@mui/material/SvgIcon';
 
+/**
+ * Custom SVG Icon Components
+ * Provides reusable SVG icons used throughout the application
+ * Icons include branding and social login options
+ */
+
+/**
+ * SitemarkIcon Component
+ * Logo/branding icon for the application
+ */
 export function SitemarkIcon() {
   return (
     <SvgIcon sx={{ height: 21, width: 100 }}>

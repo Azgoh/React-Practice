@@ -8,10 +8,19 @@ import type { Professional } from "../../interfaces/Professional";
 import { API_BASE_URL } from "../../config/Config";
 import axios from "axios";
 
+/**
+ * HomePage Component
+ * Landing page displaying available professions for users to browse and search.
+ * Shows a filterable list of unique professions based on all registered professionals.
+ */
 function HomePage() {
+  // Store all available professionals fetched from API
   const [professionals, setProfessionals] = useState<Professional[]>([]);
+  
+  // Store current search query
   const [search, setSearch] = useState("");
 
+  // Fetch professionals list on component mount
   useEffect(() => {
     const load = async () => {
       const res = await axios.get(`${API_BASE_URL}/professionals`);
@@ -20,6 +29,7 @@ function HomePage() {
     load();
   }, []);
 
+  // Extract unique professions and filter by search query (case-insensitive)
   const professions = Array.from(
     new Set(professionals.map((p) => p.profession))
   ).filter((prof) => prof.toLowerCase().includes(search.toLowerCase()));

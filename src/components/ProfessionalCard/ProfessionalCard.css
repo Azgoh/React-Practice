@@ -1,3 +1,4 @@
+/* Professional card container with shadow and hover animation */
 .professional-card {
   border-radius: 16px;
   box-shadow: 0 6px 15px rgba(0,0,0,0.1);
@@ -7,17 +8,20 @@
   cursor: pointer;
 }
 
+/* Lift card up on hover with enhanced shadow */
 .professional-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 24px rgba(0,0,0,0.15);
 }
 
+/* Inner content container with padding and vertical layout */
 .card-content {
   padding: 20px;
   display: flex;
   flex-direction: column;
 }
 
+/* Circular avatar with gradient background showing initials */
 .avatar {
   width: 50px;
   height: 50px;
@@ -32,27 +36,32 @@
   margin-bottom: 12px;
 }
 
+/* Header section containing name and profession */
 .header {
   margin-bottom: 10px;
 }
 
+/* Professional's full name - prominent styling */
 .name {
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 2px;
 }
 
+/* Profession/service type label */
 .profession {
   font-weight: 500;
   color: #374151;
 }
 
+/* Professional's bio or service description */
 .description {
   font-size: 0.95rem;
   margin: 12px 0;
   color: #4b5563;
 }
 
+/* Horizontal flex container for phone and location info */
 .info {
   display: flex;
   gap: 16px;
@@ -61,6 +70,7 @@
   color: #4b5563;
 }
 
+/* Rating display with star icon */
 .rating {
   display: flex;
   align-items: center;
@@ -70,10 +80,12 @@
   color: #374151;
 }
 
+/* Yellow star icon for ratings */
 .star {
   color: #facc15;
 }
 
+/* Hourly rate display - bold text */
 .rate {
   font-weight: 500;
   color: #111827;

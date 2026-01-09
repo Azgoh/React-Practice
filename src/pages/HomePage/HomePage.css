@@ -1,3 +1,4 @@
+/* Main page layout using CSS Grid with header, search, and footer areas */
 .home-page-container {
   display: grid;
   grid-template-areas:
@@ -7,14 +8,17 @@
   grid-template-columns: minmax(150px, 20%) 1fr;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
+  /* Subtle gradient background from light blue to white */
   background: linear-gradient(to bottom, #f5f7fa 0%, #ffffff 50%);
 }
 
+/* Header section containing navigation and branding */
 .header-container {
   grid-area: header;
   background: #f5f5f5;
 }
 
+/* Search bar and profession cards container */
 .search-bar-container {
   grid-area: search;
   display: flex;
@@ -23,9 +27,11 @@
   align-items: center;
   padding: 1rem;
   width: 100%;
+  /* Offset positioning for visual effect */
   transform: translate(-10%, -20%);
 }
 
+/* Main heading above the search bar */
 .search-heading {
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
@@ -33,11 +39,13 @@
   color: #333;
 }
 
+/* Footer section */
 .footer-container {
   grid-area: footer;
   background: #f5f5f5;
 }
 
+/* Responsive grid of profession cards - 4 columns */
 .cards-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

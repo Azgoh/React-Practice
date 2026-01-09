@@ -1,3 +1,4 @@
+/* Full-height centered container for email verification message */
 .verify-container {
   display: flex;
   flex-direction: column;
@@ -9,6 +10,7 @@
   padding: 2rem;
 }
 
+/* Card containing verification message and result */
 .verify-card {
   background: white;
   padding: 3rem 4rem;
@@ -18,18 +20,21 @@
   width: 90%;
 }
 
+/* Success message styling - green text */
 .verify-success {
   color: #28a745;
   font-size: 1.8rem;
   font-weight: 600;
 }
 
+/* Error message styling - red text */
 .verify-error {
   color: #dc3545;
   font-size: 1.6rem; 
   font-weight: 500;
 }
 
+/* Verification status body text */
 .verify-body {
   font-size: 1.2rem;
   margin-top: 0.5rem;

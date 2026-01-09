@@ -1,3 +1,4 @@
+/* Main container with full viewport height and grid layout */
 .login-wrapper {
   display: grid;
   grid-template-rows: auto 1fr;
@@ -5,10 +6,12 @@
   width: 100vw;
 }
 
+/* Login heading centered alignment */
 .login-h1{
   align-self: center;
 }
 
+/* Centered login form card with white background and shadow */
 .login-form {
   display: flex;
   flex-direction: column;
@@ -26,25 +29,30 @@
   align-self: center;
 }
 
+/* Sign up prompt text styling */
 .register_typography{
   color: grey;
 }
 
+/* Sign up link hover effect */
 .register_link:hover{
   color: #0056b3;
 }
 
+/* Password input with visibility toggle button */
 .password-container {
   position: relative;
   display: flex;
   align-items: center;
 }
 
+/* Make password input full width with space for eye icon */
 .password-container input {
   width: 100%;
   padding-right: 40px;
 }
 
+/* Eye icon toggle for show/hide password */
 .password-container span {
   position: absolute;
   right: 10px;
@@ -52,6 +60,7 @@
   color: #555;
 }
 
+/* Input and button base styles */
 .login-input, .login-btn {
   padding: 0.75rem;
   font-size: 1rem;
@@ -59,6 +68,7 @@
   border-radius: 4px;
 }
 
+/* Primary login button with blue background */
 .login-btn {
   background-color: #007bff;
   color: white;
@@ -67,6 +77,7 @@
   transition: background-color 0.2s ease;
 }
 
+/* Disabled button state during form submission */
 .login-btn:disabled {
   background-color: #cccccc; 
   color: #666666;
@@ -74,20 +85,24 @@
   opacity: 0.7;
 }
 
+/* Button hover effect when enabled */
 .login-btn:not(:disabled):hover {
   background-color: #0056b3;
 }
 
+/* API error message styling */
 .login-api-error {
   font-size: 0.8rem;
   color: red;
   align-self: center;
 }
 
+/* Input field hover - add dark border */
 .login-input:hover{
   border: 1px solid black;
 }
 
+/* Input field focus - blue border and no outline */
 .login-input:focus{
   border: 1px solid blue;
   outline: none;

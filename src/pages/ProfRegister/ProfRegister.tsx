@@ -13,21 +13,36 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import { useUser } from "../../context/UserContext";
 
+/**
+ * ProfRegister Component
+ * Form for existing users to register as service professionals.
+ * Collects professional details and submits to backend for profile creation.
+ * Uses Zod validation for form data.
+ */
 export default function ProfRegister() {
+  // Refresh user context after successful professional registration
   const { refreshUser } = useUser();
 
+  // Setup form with react-hook-form and zod validation
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting, isValid },
   } = useForm<TProfessionalRegisterSchema>({
     resolver: zodResolver(professionalRegisterSchema),
-    mode: "onTouched",
+    mode: "onTouched", // Validate on field touch
   });
 
+  /**
+   * Handle professional registration form submission
+   * Sends professional details to backend API using JWT token for authentication
+   */
   const onSubmit = async (data: TProfessionalRegisterSchema): Promise<void> => {
     try {
+      // Retrieve JWT token from session storage
       const jwt = sessionStorage.getItem("jwt");
+      
+      // Submit professional registration data
       const response = await axios.post(
         `${API_BASE_URL}/professionals/register`,
         data,
@@ -38,9 +53,14 @@ export default function ProfRegister() {
           },
         }
       );
+      
+      // Refresh user context to include new professional profile
       await refreshUser();
+      
+      // Show success notification
       toast.success(response.data);
     } catch (error: any) {
+      // Show error notification with error message from API
       toast.error(error.response.data.message);
     }
   };
