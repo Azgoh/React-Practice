@@ -20,9 +20,11 @@ import { CalendarEventPopUp } from "../CalendarEventPopUp/CalendarEventPopUp";
 import toast from "react-hot-toast";
 
 export default function MyCalendar() {
+  // Set locale for date formatting
   moment.locale("en-gb");
   const localizer = momentLocalizer(moment);
 
+  // Custom formats for the calendar
   const formats: Formats = {
     timeGutterFormat: "HH:mm",
     eventTimeRangeFormat: ({ start, end }) =>
@@ -31,16 +33,24 @@ export default function MyCalendar() {
       `${moment(start).format("D MMM")} – ${moment(end).format("D MMM")}`,
   };
 
+  // State to store professional's availability fetched from backend
   const [professionalAvailability, setProfessionalAvailability] = useState<
     Availability[] | null
   >([]);
+  // State to store currently selected calendar slot (for new events)
   const [selectedSlot, setSelectedSlot] = useState<SlotInfo | null>(null);
+  // Boolean to control whether the popup is open
   const [isOpenEvent, setIsOpenEvent] = useState<boolean>(false);
+  // State to store currently selected event (for editing existing events)
   const [selectedEvent, setSelectedEvent] = useState<AvailabilityEvent | null>(
     null
   );
+  // Calendar events mapped from professionalAvailability
   const [events, setEvents] = useState<AvailabilityEvent[]>([]);
 
+  /**
+   * Fetch professional's availability from backend
+   */
   const fetchAvailability = async (): Promise<void> => {
     try {
       const jwt = sessionStorage.getItem("jwt");
@@ -59,10 +69,15 @@ export default function MyCalendar() {
     }
   };
 
+  // Fetch availability once on component mount
   useEffect(() => {
     fetchAvailability();
   }, []);
 
+  /**
+   * Map fetched availability to calendar events
+   * Runs whenever professionalAvailability changes
+   */
   useEffect(() => {
     if (professionalAvailability) {
       const mappedEvents = professionalAvailability.map((slot) => ({
@@ -83,12 +98,18 @@ export default function MyCalendar() {
     }
   }, [professionalAvailability]);
 
+  /**
+   * Handle click on existing event to edit it
+   */
   const handleSelectEvent = (event: AvailabilityEvent) => {
     setSelectedSlot(null);
-    setSelectedEvent(event); // edit existing event
+    setSelectedEvent(event); // Edit existing event
     setIsOpenEvent(true);
   };
 
+  /**
+   * Handle selecting an empty slot to create a new event
+   */
   const handleSelectSlot = (slotInfo: SlotInfo) => {
     if (slotInfo.start < new Date()) {
       alert("You cannot select a past time slot");
@@ -96,14 +117,19 @@ export default function MyCalendar() {
     }
 
     setSelectedSlot(slotInfo);
-    setSelectedEvent(null); // new event
+    setSelectedEvent(null); // New event
     setIsOpenEvent(true);
   };
 
+  /**
+   * Save or update an availability event
+   */
   const handleSave = async (eventData: AvailabilityEvent) => {
     try {
       const jwt = sessionStorage.getItem("jwt");
+
       if (eventData.id) {
+        // Editing existing event
         const existingAvailabilityRequest: ExistingAvailabilityRequest = {
           id: eventData.id,
           title: eventData.title,
@@ -121,12 +147,12 @@ export default function MyCalendar() {
             },
           }
         );
-        setEvents((prevEvents) => {
-          return prevEvents.map((ev) =>
-            ev.id === eventData.id ? eventData : ev
-          );
-        });
+        // Update local calendar events
+        setEvents((prevEvents) =>
+          prevEvents.map((ev) => (ev.id === eventData.id ? eventData : ev))
+        );
       } else {
+        // Creating a new event
         const availabilityRequest: AvailabilityRequest = {
           title: eventData.title,
           date: moment(eventData.start).format("D MMMM YYYY"),
@@ -143,6 +169,7 @@ export default function MyCalendar() {
             },
           }
         );
+        // Add the newly created event to local state
         const savedEvent: AvailabilityEvent = {
           id: response.data.id,
           title: response.data.title,
@@ -161,9 +188,13 @@ export default function MyCalendar() {
       console.error(error);
     }
 
+    // Close popup after save
     setIsOpenEvent(false);
   };
 
+  /**
+   * Delete an availability event
+   */
   const handleDelete = async (id: number): Promise<void> => {
     try {
       const jwt = sessionStorage.getItem("jwt");
@@ -177,6 +208,7 @@ export default function MyCalendar() {
         }
       );
       toast.success("Successful deletion", { position: "bottom-center" });
+      // Remove event from local state
       setEvents((prevEvents) => prevEvents.filter((ev) => ev.id !== id));
       setIsOpenEvent(false);
     } catch (error) {
@@ -189,6 +221,7 @@ export default function MyCalendar() {
 
   return (
     <>
+      {/* Calendar display */}
       <div className="calendar-wrapper">
         <Calendar
           culture="en-GB"
@@ -202,10 +235,12 @@ export default function MyCalendar() {
           endAccessor="end"
           defaultView="week"
           style={{ height: "75vh" }}
-          onSelectSlot={handleSelectSlot}
-          onSelectEvent={handleSelectEvent}
+          onSelectSlot={handleSelectSlot}   // Create new event
+          onSelectEvent={handleSelectEvent} // Edit existing event
         />
       </div>
+
+      {/* Event popup for creating/editing availability */}
       {isOpenEvent && (
         <CalendarEventPopUp
           onClose={() => setIsOpenEvent(false)}

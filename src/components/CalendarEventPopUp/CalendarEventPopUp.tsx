@@ -5,11 +5,11 @@ import { Button } from "@mui/material";
 import { FaTimes } from "react-icons/fa";
 
 interface CalendarEventPopUpProps {
-  onClose: () => void;
-  onSave: (eventData: AvailabilityEvent) => void;
-  onDelete: (id: number) => void;
-  slot: SlotInfo | null;
-  event: AvailabilityEvent | null;
+  onClose: () => void;                     // Close popup without saving
+  onSave: (eventData: AvailabilityEvent) => void; // Create or update event
+  onDelete: (id: number) => void;          // Delete existing event
+  slot: SlotInfo | null;                   // Selected empty calendar slot
+  event: AvailabilityEvent | null;         // Existing event (edit mode)
 }
 
 export const CalendarEventPopUp: React.FC<CalendarEventPopUpProps> = ({
@@ -19,10 +19,15 @@ export const CalendarEventPopUp: React.FC<CalendarEventPopUpProps> = ({
   slot,
   event,
 }) => {
+  // Local form state
   const [title, setTitle] = useState<string>("");
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
 
+  /**
+   * Converts a Date object to a string format compatible with
+   * <input type="datetime-local" /> (local time, no timezone)
+   */
   const formatLocalForInput = (date: Date) => {
     const pad = (n: number) => n.toString().padStart(2, "0");
     const year = date.getFullYear();
@@ -33,6 +38,11 @@ export const CalendarEventPopUp: React.FC<CalendarEventPopUpProps> = ({
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   };
 
+  /**
+   * Populate form fields:
+   * - If editing an existing event, load its values
+   * - If creating a new event from a slot, pre-fill slot times
+   */
   useEffect(() => {
     if (event) {
       setTitle(event.title);
@@ -45,11 +55,17 @@ export const CalendarEventPopUp: React.FC<CalendarEventPopUpProps> = ({
     }
   }, [event, slot]);
 
+  /**
+   * Handle form submission:
+   * - Build AvailabilityEvent object
+   * - Include ID only when editing
+   * - Delegate save logic to parent
+   */
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const eventData: AvailabilityEvent = {
-      title: title,
+      title,
       start: new Date(start),
       end: new Date(end),
     };
@@ -62,6 +78,7 @@ export const CalendarEventPopUp: React.FC<CalendarEventPopUpProps> = ({
   };
 
   return (
+    // Modal backdrop
     <div
       style={{
         position: "fixed",
@@ -76,6 +93,7 @@ export const CalendarEventPopUp: React.FC<CalendarEventPopUpProps> = ({
         zIndex: 10,
       }}
     >
+      {/* Modal container */}
       <div
         style={{
           backgroundColor: "white",
@@ -84,20 +102,23 @@ export const CalendarEventPopUp: React.FC<CalendarEventPopUpProps> = ({
           width: "400px",
         }}
       >
+        {/* Header */}
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            marginBottom: "1rem"
+            marginBottom: "1rem",
           }}
         >
-          <h2 style={{ margin: 0 }}>{event ? "Edit Event" : "Add Event"}</h2>{" "}
+          <h2 style={{ margin: 0 }}>
+            {event ? "Edit Event" : "Add Event"}
+          </h2>
+
+          {/* Close button */}
           <button
             onClick={onClose}
             style={{
-              top: "10px",
-              right: "10px",
               background: "transparent",
               border: "none",
               cursor: "pointer",
@@ -119,6 +140,8 @@ export const CalendarEventPopUp: React.FC<CalendarEventPopUpProps> = ({
             <FaTimes />
           </button>
         </div>
+
+        {/* Event form */}
         <form onSubmit={handleSubmit}>
           <div>
             <label>Title:</label>
@@ -130,6 +153,7 @@ export const CalendarEventPopUp: React.FC<CalendarEventPopUpProps> = ({
               style={{ width: "90%", padding: "8px", marginBottom: "10px" }}
             />
           </div>
+
           <div>
             <label>Start:</label>
             <input
@@ -140,6 +164,7 @@ export const CalendarEventPopUp: React.FC<CalendarEventPopUpProps> = ({
               style={{ width: "90%", padding: "8px", marginBottom: "10px" }}
             />
           </div>
+
           <div>
             <label>End:</label>
             <input
@@ -150,6 +175,8 @@ export const CalendarEventPopUp: React.FC<CalendarEventPopUpProps> = ({
               style={{ width: "90%", padding: "8px", marginBottom: "10px" }}
             />
           </div>
+
+          {/* Action buttons */}
           <div
             style={{
               display: "flex",
@@ -157,9 +184,10 @@ export const CalendarEventPopUp: React.FC<CalendarEventPopUpProps> = ({
               alignItems: "center",
               width: "90%",
               gap: "0.3rem",
-              marginTop: "0.5rem"
+              marginTop: "0.5rem",
             }}
           >
+            {/* Show delete button only when editing */}
             {event?.id !== undefined && (
               <Button
                 type="button"
@@ -175,6 +203,7 @@ export const CalendarEventPopUp: React.FC<CalendarEventPopUpProps> = ({
                 Delete
               </Button>
             )}
+
             <Button
               type="submit"
               sx={{

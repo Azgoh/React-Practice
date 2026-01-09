@@ -8,7 +8,7 @@ import { API_BASE_URL } from "../../config/Config";
 import type { Availability } from "../../interfaces/Availability";
 
 interface ProfessionalCalendarProps {
-  professionalId: number;
+  professionalId: number; // ID of the professional whose calendar we are viewing
 }
 
 interface CalendarEvent {
@@ -16,7 +16,7 @@ interface CalendarEvent {
   title: string;
   start: Date;
   end: Date;
-  slotInfo: SlotInfo;
+  slotInfo: SlotInfo; // Original slot info for booking purposes
 }
 
 interface Professional {
@@ -28,10 +28,18 @@ interface Professional {
 export const ProfessionalCalendar: React.FC<ProfessionalCalendarProps> = ({
   professionalId,
 }) => {
+  // Configure calendar to use moment.js for dates
   const localizer = momentLocalizer(moment);
+
+  // Calendar events mapped from professional availability
   const [events, setEvents] = useState<CalendarEvent[]>([]);
+
+  // Professional info (name, profession) displayed above calendar
   const [professional, setProfessional] = useState<Professional | null>(null);
 
+  /**
+   * Fetch professional's info from backend
+   */
   const fetchProfessional = async () => {
     try {
       const res = await axios.get<Professional>(
@@ -44,6 +52,9 @@ export const ProfessionalCalendar: React.FC<ProfessionalCalendarProps> = ({
     }
   };
 
+  /**
+   * Fetch professional's available time slots and map them to calendar events
+   */
   const fetchAvailability = async () => {
     try {
       const res = await axios.get(
@@ -73,17 +84,23 @@ export const ProfessionalCalendar: React.FC<ProfessionalCalendarProps> = ({
     }
   };
 
+  // Fetch professional info and availability whenever professionalId changes
   useEffect(() => {
     fetchProfessional();
     fetchAvailability();
   }, [professionalId]);
 
+  /**
+   * Handle selecting a calendar slot to book an appointment
+   */
   const handleSelectSlot = async (slotInfo: SlotInfo) => {
+    // Prevent booking in the past
     if (slotInfo.start < new Date()) {
       toast.error("Cannot select past slots");
       return;
     }
 
+    // Confirm with user before booking
     const confirm = window.confirm(
       `Book an appointment on ${moment(slotInfo.start).format("LLLL")}?`
     );
@@ -91,6 +108,7 @@ export const ProfessionalCalendar: React.FC<ProfessionalCalendarProps> = ({
     if (!confirm) return;
 
     try {
+      // Send booking request to backend
       await axios.post(
         `${API_BASE_URL}/appointments/book`,
         {
@@ -107,6 +125,8 @@ export const ProfessionalCalendar: React.FC<ProfessionalCalendarProps> = ({
       );
 
       toast.success("Appointment booked successfully!");
+
+      // Refresh availability to reflect the booked slot
       fetchAvailability();
     } catch (err) {
       console.error(err);
@@ -116,6 +136,7 @@ export const ProfessionalCalendar: React.FC<ProfessionalCalendarProps> = ({
 
   return (
     <div style={{ margin: "0 auto", padding: "20px" }}>
+      {/* Display professional info above the calendar */}
       {professional && (
         <h1
           style={{
@@ -130,6 +151,8 @@ export const ProfessionalCalendar: React.FC<ProfessionalCalendarProps> = ({
           {professional.profession}
         </h1>
       )}
+
+      {/* Calendar component */}
       <Calendar
         localizer={localizer}
         selectable
@@ -139,8 +162,9 @@ export const ProfessionalCalendar: React.FC<ProfessionalCalendarProps> = ({
         defaultView="week"
         views={["day", "week", "month"]}
         step={30}
-        onSelectSlot={handleSelectSlot}
+        onSelectSlot={handleSelectSlot} // Handles slot selection for booking
         components={{
+          // Custom event renderer to attach data-test for Cypress and click behavior
           event: ({ event }) => (
             <div
               data-test="calendar-slot"

@@ -1,56 +1,63 @@
+/* Main header container */
 .header {
-  display: flex;
+  display: flex;                 /* Horizontal layout */
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  align-items: center;           /* Vertically center content */
+  justify-content: space-between;/* Left and right sections */
   background: white;
   padding-right: 2rem;
-  height: 5rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  position: sticky;
+  height: 5rem;                  /* Fixed header height */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); /* Subtle elevation */
+  position: sticky;              /* Sticks to top on scroll */
   top: 0;
-  z-index: 1000;
+  z-index: 1000;                 /* Stay above page content */
 }
 
+/* Left section: logo / brand */
 .header-left {
   display: flex;
   align-items: center;
   height: 100%;
 }
 
+/* Clickable logo container */
 .logo {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #007bff;
+  color: #007bff;                /* Brand color */
   font-size: 1.4rem;
   font-weight: bold;
   height: 100%;
 }
 
+/* Logo image styling */
 .logo img {
-  height: 100%;
-  width: auto;
+  height: 100%;                  /* Match header height */
+  width: auto;                   /* Preserve aspect ratio */
   margin-right: 1rem;
-  display: block;
+  display: block;                /* Prevent inline spacing issues */
 }
 
+/* Right section: navigation links / actions */
 .header-right {
   display: flex;
-  gap: 1.5rem;
+  gap: 1.5rem;                   /* Space between nav items */
   align-items: center;
 }
 
+/* Navigation link styling */
 .nav-link {
   text-decoration: none;
   color: #333;
   font-weight: 500;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease;   /* Smooth hover effect */
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.4rem;                   /* Space between icon and text */
 }
 
+/* Hover state for navigation links */
 .nav-link:hover {
-  color: #007bff;
+  color: #007bff;                /* Highlight on hover */
 }

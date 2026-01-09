@@ -1,3 +1,4 @@
+// zod form schemas and types for user authentication and professional registration
 import { z } from "zod";
 
 export const signUpSchema = z.object({
